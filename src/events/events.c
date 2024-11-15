@@ -103,20 +103,7 @@ int	key_handler(int keysym, t_state *s)
 }
 int close_handler(t_state *s)
 {
-	mlx_destroy_image(s->g->mlx_conn, s->g->f_section.img_ptr);
-	mlx_destroy_image(s->g->mlx_conn, s->g->mousehvr_section_d.img_ptr);
-	mlx_destroy_image(s->g->mlx_conn, s->g->mousehvr_section_w.img_ptr);
-	mlx_destroy_image(s->g->mlx_conn, s->g->mousehvr_section_f.img_ptr);
-	mlx_destroy_image(s->g->mlx_conn, s->g->static_gui.img_ptr);
-	mlx_destroy_image(s->g->mlx_conn, s->g->uc_apply.img_ptr);
-	mlx_destroy_image(s->g->mlx_conn, s->g->uca_r.img_ptr);
-	mlx_destroy_image(s->g->mlx_conn, s->g->uca_g.img_ptr);
-	mlx_destroy_image(s->g->mlx_conn, s->g->uca_b.img_ptr);
-	mlx_destroy_image(s->g->mlx_conn, s->g->uca_c.img_ptr);
-	mlx_destroy_image(s->g->mlx_conn, s->g->ucb_r.img_ptr);
-	mlx_destroy_image(s->g->mlx_conn, s->g->ucb_g.img_ptr);
-	mlx_destroy_image(s->g->mlx_conn, s->g->ucb_b.img_ptr);
-	mlx_destroy_image(s->g->mlx_conn, s->g->ucb_c.img_ptr);
+	free_sections(s->g);
 	mlx_destroy_window(s->g->mlx_conn, s->g->mlx_win);
 	mlx_destroy_display(s->g->mlx_conn);
 	free(s->g->mlx_conn);
@@ -303,7 +290,7 @@ void draw_apply(t_state *s)
 		draw_rect(&s->g->uc_apply, pos, dim);
 		pos.x = 25;
 		pos.y = 8;
-		lib_x_write_string("apply", pos, &s->g->uc_apply);
+		lib_x_write_string("apply", 25, 8, &s->g->uc_apply);
 	}
 	else
 	{
@@ -410,15 +397,15 @@ int	mouse_move_handler(int x, int y, t_state *s)
 		calc_fractal_coord(x, y, s);
 		pos.x = 0;
 		pos.y = 0;
-		lib_x_write_string(s->f->mouse_x, pos, &s->g->mousehvr_section_w);
+		lib_x_write_string(s->f->mouse_x, 0, 0, &s->g->mousehvr_section_w);
 		pos.y += 20;
-		lib_x_write_string(s->f->mouse_y, pos, &s->g->mousehvr_section_w);
+		lib_x_write_string(s->f->mouse_y, 0, 20, &s->g->mousehvr_section_w);
 		mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->mousehvr_section_w.img_ptr, 85, 810);
 
 		pos.y -= 20;
-		lib_x_write_string(s->f->fractal_x, pos, &s->g->mousehvr_section_f);
+		lib_x_write_string(s->f->fractal_x, 0,0, &s->g->mousehvr_section_f);
 		pos.y += 20;
-		lib_x_write_string(s->f->fractal_y, pos, &s->g->mousehvr_section_f);
+		lib_x_write_string(s->f->fractal_y, 0, 20, &s->g->mousehvr_section_f);
 		mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->mousehvr_section_f.img_ptr, 200, 810);
 		
 		

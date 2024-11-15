@@ -1,7 +1,7 @@
 #.SILENT:
 
 CC			=	cc
-CFLAGS 		= -Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_PATH)
+CFLAGS 		= -Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_PATH) 
 RM			=	rm -rf
 
 SRC_DIR		= ./src
@@ -17,16 +17,16 @@ MLX_PATH		=	$(addprefix $(LIB_DIR)/, minilibx-linux/)
 
 LINKS = -lmlx -lXext -lX11 -L$(MLX_PATH) -lmlx -L$(LIFT_PATH)lib -lft -lm
 
-SRC				=	$(addprefix $(SRC_DIR)/, fractol.c)																										\
-					$(addprefix $(SRC_DIR)/math/, math_aux.c) $(addprefix $(SRC_DIR)/math/, double_aux.c) $(addprefix $(SRC_DIR)/math/, custom_itoa_f.c)	\
+SRC				=	$(addprefix $(SRC_DIR)/math/, math_aux.c) $(addprefix $(SRC_DIR)/math/, double_aux.c) $(addprefix $(SRC_DIR)/math/, custom_itoa_f.c)	\
 					$(addprefix $(SRC_DIR)/t_fractal/, t_fractal_aux.c) $(addprefix $(SRC_DIR)/t_fractal/, t_fractal_init.c)								\
 					$(addprefix $(SRC_DIR)/parser/, parser.c)																								\
 					$(addprefix $(SRC_DIR)/t_graphics/, t_graphics_init.c) $(addprefix $(SRC_DIR)/t_graphics/, t_graphics_free.c)							\
 					$(addprefix $(SRC_DIR)/events/, events.c) $(addprefix $(SRC_DIR)/events/, events_init.c) 												\
 					$(addprefix $(SRC_DIR)/asc_strings/, letters.c) $(addprefix $(SRC_DIR)/asc_strings/, digits.c) 											\
 					$(addprefix $(SRC_DIR)/asc_strings/, patterns.c) $(addprefix $(SRC_DIR)/asc_strings/, write_string.c) 									\
-					$(addprefix $(SRC_DIR)/render/, render_gui.c) $(addprefix $(SRC_DIR)/render/, render_fractal.c) $(addprefix $(SRC_DIR)/render/, render_aux.c)										\
-					$(addprefix $(SRC_DIR)/, debug.c) 																										\
+					$(addprefix $(SRC_DIR)/render/, render_gui.c) $(addprefix $(SRC_DIR)/render/, render_fractal.c) 										\
+					$(addprefix $(SRC_DIR)/render/, render_aux.c) $(addprefix $(SRC_DIR)/render/, render_dynamic.c) 										\
+					$(addprefix $(SRC_DIR)/, fractol.c)	 																								\
 
 OBJS = 				${patsubst ${SRC_DIR}/%.c, ${OBJ_DIR}/%.o, ${SRC}}
 

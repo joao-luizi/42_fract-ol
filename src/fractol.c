@@ -1,5 +1,7 @@
 #include "../inc/fractol.h"
 
+
+
 void show_help_msg() 
 {
     ft_putendl_fd("Available fractals:", 1);

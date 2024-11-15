@@ -145,7 +145,7 @@ typedef struct s_state
 void            print_mapped_coordinates(t_fractal *f);
 void            visualize_color_scheme(void *mlx, void *win, t_fractal *f);
 // write_string.c
-void            lib_x_write_string(char *str, t_ipoint pos, t_img *section);
+void            lib_x_write_string(char *str, int x, int y, t_img *section);
 
 //t_fractal_init.c
 void			init_fractal(t_fractal *f, int argc, char **argv); 
@@ -185,14 +185,15 @@ void fill_rect(t_img *section, t_ipoint pos, t_ipoint dim, int color);
 void draw_rect(t_img *section, t_ipoint pos, t_ipoint dim);
 
 //render_gui.c
+void init_ui(t_state *s);
+
+
+//render_dynamic.c
 void draw_mouse_hover_elements(t_state *s);
-void draw_static_elements(t_img *section);
-void draw_static_string(t_img *section, char *f_name);
 void draw_mouse_hover_dimensions(t_state *s);
-void draw_rect(t_img *section, t_ipoint pos, t_ipoint dim);
-void fill_rect(t_img *section, t_ipoint pos, t_ipoint dim, int color);
 void draw_color_a_rect(t_state *s);
 void draw_color_b_rect(t_state *s);
+
 
 //render_fractal
 void render_graphics(t_state *s);
@@ -200,7 +201,6 @@ void render_graphics(t_state *s);
 //t_graphics_init.c
 void    clean_g(t_graphics *g);
 int     init_graphics(t_state *s);
-void    init_ui(t_state *s);
 
 //t_graphics_free
 int check_sections(t_graphics *g);
@@ -214,18 +214,10 @@ int close_handler(t_state *s);
 int	mouse_move_handler(int x, int y, t_state *s);
 void draw_apply(t_state *s);
 
-
-
 void            get_character_pattern(char c, int letter[5][3]);
 void            draw_char_to_image(int x, int y, t_img *section, int char_map[5][3]);
-
 int             key_handler(int keysym, t_state *s);
-
 int             mouse_handler(int button, int x, int y, t_state *s);
-
-
-
-
 double 			custom_atof(char *str);
 
 
