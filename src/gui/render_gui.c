@@ -1,5 +1,16 @@
 #include "../../inc/fractol.h"
 
+void init_ui(t_state *s)
+{
+	draw_static_elements(&s->g->static_gui);
+	draw_static_string(&s->g->static_gui, get_fractal_string(s->f->fractal_type));
+	mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->static_gui.img_ptr, 0,0);
+	calc_axis(s);
+	draw_mouse_hover_dimensions(s);
+	draw_color_a_rect(s);
+    draw_color_b_rect(s);
+}
+
 void draw_rect(t_img *section, t_ipoint pos, t_ipoint dim)
 {
     int *pixels;

@@ -21,7 +21,7 @@ SRC				=	$(addprefix $(SRC_DIR)/, fractol.c)																										\
 					$(addprefix $(SRC_DIR)/math/, math_aux.c) $(addprefix $(SRC_DIR)/math/, double_aux.c) $(addprefix $(SRC_DIR)/math/, custom_itoa_f.c)	\
 					$(addprefix $(SRC_DIR)/t_fractal/, t_fractal_aux.c) $(addprefix $(SRC_DIR)/t_fractal/, t_fractal_init.c)								\
 					$(addprefix $(SRC_DIR)/parser/, parser.c)																								\
-					$(addprefix $(SRC_DIR)/t_graphics/, t_graphics_init.c) $(addprefix $(SRC_DIR)/t_graphics/, t_graphics_render.c)							\
+					$(addprefix $(SRC_DIR)/t_graphics/, t_graphics_init.c) $(addprefix $(SRC_DIR)/t_graphics/, t_graphics_free.c)							\
 					$(addprefix $(SRC_DIR)/events/, events.c) $(addprefix $(SRC_DIR)/events/, events_init.c) 												\
 					$(addprefix $(SRC_DIR)/asc_strings/, letters.c) $(addprefix $(SRC_DIR)/asc_strings/, digits.c) 											\
 					$(addprefix $(SRC_DIR)/asc_strings/, patterns.c) $(addprefix $(SRC_DIR)/asc_strings/, write_string.c) 									\

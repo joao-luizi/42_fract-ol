@@ -175,9 +175,12 @@ void render_graphics(t_state *s);
 
 //t_graphics_init.c
 void    clean_g(t_graphics *g);
-void    init_graphics(t_state *s);
-void    init_section(t_graphics *g, t_img *section, int width, int height);
+int     init_graphics(t_state *s);
 void    init_ui(t_state *s);
+
+//t_graphics_free
+int check_sections(t_graphics *g);
+void free_sections(t_graphics *g);
 
 //events_init
 void init_events(t_state *s);
