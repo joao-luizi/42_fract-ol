@@ -122,20 +122,20 @@ void user_color_b_b(int x, int y, t_state *s)
 		{
 			b++;
 			s->f->color_b_edit = r << 16 | g << 8 | b;
-			draw_color_b_rect(s);
+			draw_color_a_rect(s);
 		}
 		if (y > 640 - 5 && y < 640 + 5 && g > 0)
 		{
 			b--;
 			s->f->color_b_edit = r << 16 | g << 8 | b;
-			draw_color_b_rect(s);
+			draw_color_a_rect(s);
 		}
 	}
 	if (x > 935 && x < 950 && y > 500 && y < 625)
 	{
 		b = (625 - y) * 255 / 125;
 		s->f->color_b_edit = r << 16 | g << 8 | b;
-		draw_color_b_rect(s);
+		draw_color_a_rect(s);
 	}
 }
 void user_color_b_g(int x, int y, t_state *s)
@@ -149,20 +149,20 @@ void user_color_b_g(int x, int y, t_state *s)
 		{
 			g++;
 			s->f->color_b_edit = r << 16 | g << 8 | b;
-			draw_color_b_rect(s);
+			draw_color_a_rect(s);
 		}
 		if (y > 640 - 5 && y < 640 + 5 && g > 0)
 		{
 			g--;
 			s->f->color_b_edit = r << 16 | g << 8 | b;
-			draw_color_b_rect(s);
+			draw_color_a_rect(s);
 		}
 	}
 	if (x > 885 && x < 900 && y > 500 && y < 625)
 	{
 		g = (625 - y) * 255 / 125;
 		s->f->color_b_edit = r << 16 | g << 8 | b;
-		draw_color_b_rect(s);
+		draw_color_a_rect(s);
 	}
 }
 
@@ -177,20 +177,20 @@ void user_color_b_r(int x, int y, t_state *s)
 		{
 			r++;
 			s->f->color_b_edit = r << 16 | g << 8 | b;
-			draw_color_b_rect(s);
+			draw_color_a_rect(s);
 		}
 		if (y > 640 - 5 && y < 640 + 5 && r > 0)
 		{
 			r--;
 			s->f->color_b_edit = r << 16 | g << 8 | b;
-			draw_color_b_rect(s);
+			draw_color_a_rect(s);
 		}
 	}
 	if (x > 833 && x < 848 && y > 500 && y < 625)
 	{
 		r = (625 - y) * 255 / 125;
 		s->f->color_b_edit = r << 16 | g << 8 | b;
-		draw_color_b_rect(s);
+		draw_color_a_rect(s);
 	}
 }
 

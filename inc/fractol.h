@@ -191,8 +191,7 @@ void init_ui(t_state *s);
 //render_dynamic.c
 void draw_mouse_hover_elements(t_state *s);
 void draw_mouse_hover_dimensions(t_state *s);
-void draw_color_a_rect(t_state *s);
-void draw_color_b_rect(t_state *s);
+void draw_color_rect(t_state *s);
 
 
 //render_fractal

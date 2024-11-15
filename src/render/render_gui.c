@@ -60,8 +60,7 @@ void init_ui(t_state *s)
 	mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->static_gui.img_ptr, 0,0);
 	calc_axis(s);
 	draw_mouse_hover_dimensions(s);
-	draw_color_a_rect(s);
-    draw_color_b_rect(s);
+	draw_color_rect(s);
 }
 
 
