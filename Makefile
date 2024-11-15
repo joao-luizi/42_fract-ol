@@ -25,7 +25,7 @@ SRC				=	$(addprefix $(SRC_DIR)/, fractol.c)																										\
 					$(addprefix $(SRC_DIR)/events/, events.c) $(addprefix $(SRC_DIR)/events/, events_init.c) 												\
 					$(addprefix $(SRC_DIR)/asc_strings/, letters.c) $(addprefix $(SRC_DIR)/asc_strings/, digits.c) 											\
 					$(addprefix $(SRC_DIR)/asc_strings/, patterns.c) $(addprefix $(SRC_DIR)/asc_strings/, write_string.c) 									\
-					$(addprefix $(SRC_DIR)/gui/, render_gui.c) $(addprefix $(SRC_DIR)/gui/, render_fractal.c)												\
+					$(addprefix $(SRC_DIR)/render/, render_gui.c) $(addprefix $(SRC_DIR)/render/, render_fractal.c) $(addprefix $(SRC_DIR)/render/, render_aux.c)										\
 					$(addprefix $(SRC_DIR)/, debug.c) 																										\
 
 OBJS = 				${patsubst ${SRC_DIR}/%.c, ${OBJ_DIR}/%.o, ${SRC}}

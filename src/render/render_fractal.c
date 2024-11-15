@@ -5,16 +5,7 @@ static void	set_pixel_color(t_graphics *g, int x, int y, int color)
 
 	int offs;
 	offs = (y * g->f_section.len) + (x * (g->f_section.bpp / 8));
-	/* *(unsigned int *)(img->pixels_ptr + offs) = color; */
     *(unsigned int *)(g->f_section.pixels_ptr + offs) = color;
-    // Combine back to a single color value
-    //color = (r << 16) | (g_color << 8) | b;
-
-/* 	g->f_section.pixels_ptr[x * 4 + y * IMAGE_WIDTH * 4] = color;
-	g->f_section.pixels_ptr[x * 4 + y * IMAGE_WIDTH * 4 + 1] = color >> 8;
-	g->f_section.pixels_ptr[x * 4 + y * IMAGE_WIDTH * 4 + 2] = color >> 16;
-	g->f_section.pixels_ptr[x * 4 + y * IMAGE_WIDTH * 4 + 3] = color >> 24; */
-
 } 
 
 

@@ -1,7 +1,5 @@
 #include "../inc/fractol.h"
 
-
-
 static void get_integer_part(char **str, double *result)
 {
 	while (ft_isdigit(**str))
@@ -52,6 +50,5 @@ double custom_atof(char *str)
     }
 	get_integer_part(&str, &result);
 	get_decimal_part(&str, &result);
-
 	return (sign * result);
 }

@@ -1,69 +1,57 @@
 #include "../../inc/fractol.h"
 
-int	calc_mandelbrot(double cr, double ci, int max_iter)
+void clean_f(t_fractal *f)
 {
-	int		n;
-	double	zr;
-	double	zi;
-	double	tmp;
-
-	zr = 0;
-	zi = 0;
-	n = 0;
-	while (n < max_iter)
-	{
-		if ((zr * zr + zi * zi) > 4.0)
-			break ;
-		tmp = 2 * zr * zi + ci;
-		zr = zr * zr - zi * zi + cr;
-		zi = tmp;
-		n++;
-	}
-	return (n);
+	f->fractal_type = FRACTAL_INVALID;
+	f->julia_c.x = 0.0;
+	f->julia_c.y = 0.0;
+	f->dreal.x = 0.0;
+	f->dreal.y = 0.0;
+	f->dimag.x = 0.0;
+	f->dimag.y = 0.0;
+	f->shift.x = 0.0;
+	f->shift.y = 0.0;
+	f->iterations = MAX_ITERATIONS;
+	f->zoomx = 1.0;
+	ft_memset(f->mapped_x, 0, sizeof(f->mapped_x));
+	ft_memset(f->mapped_y, 0, sizeof(f->mapped_y));
+	ft_memset(f->mouse_x, 0, sizeof(f->mouse_x));
+	ft_memset(f->mouse_y, 0, sizeof(f->mouse_y));
+	ft_memset(f->fractal_x, 0, sizeof(f->fractal_x));
+	ft_memset(f->fractal_y, 0, sizeof(f->fractal_y));
+	ft_memset(f->fractal_d_x_max, 0, sizeof(f->fractal_d_x_max));
+	ft_memset(f->fractal_d_x_min, 0, sizeof(f->fractal_d_x_min));
+	ft_memset(f->fractal_d_y_max, 0, sizeof(f->fractal_d_y_max));
+	ft_memset(f->fractal_d_y_min, 0, sizeof(f->fractal_d_y_min));
+	ft_memset(f->fractal_iterations, 0, sizeof(f->fractal_iterations));
 }
 
-int	calc_julia(t_fractal *f, double zr, double zi)
+void set_gradient_colors(t_fractal *f)
 {
-	int		n;
-	double	tmp;
+    int i;
+    double fraction;
+    int  start_r, start_g, start_b;
+    int  end_r, end_g, end_b;
 
-	n = 0;
-	tmp = 0;
-	
-	while (n < f->iterations)
-	{
-		if ((zi * zi + zr * zr) > 4.0)
-			break ;
-		tmp = 2 * zr * zi + f->julia_c.y;
-		zr = zr * zr - zi * zi + f->julia_c.x;
-		zi = tmp;
-		n++;
-	}
-	return (n);
-}
+    start_r = (f->color_a >> 16) & 0xFF;
+    start_g = (f->color_a >> 8) & 0xFF;
+    start_b = f->color_a & 0xFF;
 
-int	calc_burning_ship(double cr, double ci, int max_iter)
-{
-	int		n;
-	double	zr;
-	double	zi;
-	double	tmp;
+    end_r = (f->color_b >> 16) & 0xFF;
+    end_g = (f->color_b >> 8) & 0xFF;
+    end_b = f->color_b & 0xFF;
 
-	zr = 0;
-	zi = 0;
-	n = 0;
-	while (n < max_iter)
-	{
-		if ((zr * zr + zi * zi) > 4.0)
-			break ;
-		zr = fabs(zr);
-		zi = fabs(zi);
-		tmp = 2 * zr * zi + ci;
-		zr = zr * zr - zi * zi + cr;
-		zi = tmp;
-		n++;
-	}
-	return (n);
+    for (i = 0; i < f->iterations; i++)
+    {
+		f->color_range[i] = 0;
+        fraction = (double)i / (f->iterations - 1);
+
+        int r = start_r + fraction * (end_r - start_r);
+        int g = start_g + fraction * (end_g - start_g);
+        int b = start_b + fraction * (end_b - start_b);
+
+        f->color_range[i] = (r << 16) | (g << 8) | b;
+    }
 }
 
 void update_mapped_coordinates(t_fractal *f)
@@ -97,6 +85,7 @@ t_fractal_type get_fractal_type(char *input)
         return FRACTAL_INVALID;
 }
 
+
 char *get_fractal_string(t_fractal_type fractal_type) 
 {
 	if (fractal_type == FRACTAL_MANDELBROT)
@@ -109,15 +98,3 @@ char *get_fractal_string(t_fractal_type fractal_type)
         return "Invalid";
 }
 
-void print_fractal(t_fractal *fractal) 
-{
-    if (!fractal) {
-        ft_printf("Fractal is NULL.\n");
-        return;
-    }
-	ft_printf("Fractal Type: %s\n", get_fractal_string(fractal->fractal_type));
-
-    printf("a: %.2f\n", fractal->julia_c.x);
-    printf("b: %.2f\n", fractal->julia_c.y);
-   
-}

@@ -13,16 +13,9 @@ void show_help_msg()
     ft_putendl_fd("  - color: Optional hexadecimal color (e.g., 0x000000)", 1);
     ft_putendl_fd("Examples:", 1);
     ft_putendl_fd("\033[31m./fractol Mandelbrot\033[0m", 1);
-    ft_putendl_fd("\033[31m./fractol Julia -1.3 1.8 \"0x5733FF\"\033[0m", 1);
+    ft_putendl_fd("\033[31m./fractol Julia -0.3 0.8 \"0x5733FF\"\033[0m", 1);
 	exit(1);
 }
-
-void exit_error(char* msg, int fd)
-{
-	ft_putstr_fd(msg, fd);
-	exit(1);
-}
-
 
 void clean_init(t_state *s)
 {
@@ -46,13 +39,15 @@ int main(int argc, char **argv)
     init_fractal(&f, argc, argv);
     if (f.fractal_type == FRACTAL_INVALID)
         show_help_msg();
-    if (init_graphics(&s))
+    if (!init_graphics(&s))
     {
-        init_ui(&s);
-        init_events(&s);
-        render_graphics(&s);
-        mlx_loop(g.mlx_conn); 
+        ft_putendl_fd("\033[31mUnrecoverable graphics error.\033[0m", 1);
+	    exit(1);
     }
+    init_ui(&s);
+    init_events(&s);
+    render_graphics(&s);
+    mlx_loop(g.mlx_conn); 
     return (0);
 }
 

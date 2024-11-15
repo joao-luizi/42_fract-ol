@@ -22,7 +22,7 @@ int check_color_format(char *str)
     if (length == 0 || (str[0] != '0' && str[1] != 'x'))
 		return (FALSE);
 	length -=2;
-	if (length != 8)
+	if (length != 6)
 		return (FALSE);
 	i = 2;
 	while (str[i])

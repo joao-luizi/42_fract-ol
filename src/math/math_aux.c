@@ -1,28 +1,69 @@
 #include "../inc/fractol.h"
 
-
-
-double map(double unscaled_num, double new_min, double new_max, double old_min, double old_max)
+int	calc_mandelbrot(double cr, double ci, int max_iter)
 {
-	return ((new_max - new_min) * (unscaled_num - old_min) / (old_max - old_min) + new_min);
+	int		n;
+	double	zr;
+	double	zi;
+	double	tmp;
+
+	zr = 0;
+	zi = 0;
+	n = 0;
+	while (n < max_iter)
+	{
+		if ((zr * zr + zi * zi) > 4.0)
+			break ;
+		tmp = 2 * zr * zi + ci;
+		zr = zr * zr - zi * zi + cr;
+		zi = tmp;
+		n++;
+	}
+	return (n);
 }
 
-t_dpoint vector_sum(t_dpoint v1, t_dpoint v2)
+int	calc_julia(t_fractal *f, double zr, double zi)
 {
-	t_dpoint result;
+	int		n;
+	double	tmp;
 
-	result.x = v1.x + v2.x;
-	result.y = v1.y + v2.y;
-	return (result);
+	n = 0;
+	tmp = 0;
+	
+	while (n < f->iterations)
+	{
+		if ((zi * zi + zr * zr) > 4.0)
+			break ;
+		tmp = 2 * zr * zi + f->julia_c.y;
+		zr = zr * zr - zi * zi + f->julia_c.x;
+		zi = tmp;
+		n++;
+	}
+	return (n);
 }
 
-t_dpoint	 vector_square(t_dpoint v)
+int	calc_burning_ship(double cr, double ci, int max_iter)
 {
-	t_dpoint result;
+	int		n;
+	double	zr;
+	double	zi;
+	double	tmp;
 
-	result.x = (v.x * v.x) - (v.y * v.y);
-	result.y = 2 * v.x * v.y;
-	return (result);
+	zr = 0;
+	zi = 0;
+	n = 0;
+	while (n < max_iter)
+	{
+		if ((zr * zr + zi * zi) > 4.0)
+			break ;
+		zr = fabs(zr);
+		zi = fabs(zi);
+		tmp = 2 * zr * zi + ci;
+		zr = zr * zr - zi * zi + cr;
+		zi = tmp;
+		n++;
+	}
+	return (n);
 }
 
 unsigned int hex_string_to_int(char *hex_string) 
@@ -44,3 +85,4 @@ unsigned int hex_string_to_int(char *hex_string)
 	}
     return result;
 }
+

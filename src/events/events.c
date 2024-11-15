@@ -346,36 +346,41 @@ int	mouse_handler(int button, int x, int y, t_state *s)
 	}
 	else if (button == Button4)
 	{
-		
-		s->f->dreal.y *= 0.95;
-		s->f->dreal.x *= 0.95;
-		s->f->dimag.x *= 0.95;
-		s->f->dimag.y *= 0.95;
+		double check;
 
-		x -= IMAGE_WIDTH / 2;
-		y -= IMAGE_HEIGHT / 2;
-		double distance_x = 0.0;
-		double distance_y = 0.0;
-		if (y < 0)
-			distance_y = fabs(s->f->dimag.x - s->f->dimag.y) * (y * -1) / 800;
-		else
-			distance_y = fabs(s->f->dimag.x - s->f->dimag.y) * y  / 800;
-		if (x < 0)
-			distance_x = fabs(s->f->dreal.x - s->f->dreal.y) * (x * -1) / 800;
-		else
-			distance_x = fabs(s->f->dreal.x - s->f->dreal.y) * x / 800;	
-		if (x < 0)
-			pan(s, fabs(distance_x) / 10, 'R');
-		else if (x > 0)
-			pan(s, fabs(distance_x) / 10, 'L');
-		if (y < 0)
-			pan(s, fabs(distance_y) / 10, 'D');
-		else if (y > 0)
-			pan(s, fabs(distance_y) / 10, 'U');
-		calc_axis(s);
-		draw_mouse_hover_dimensions(s);
-		update_mapped_coordinates(s->f);
-		render_graphics(s);
+		check = s->f->dreal.y;
+		if (s->f->dreal.y * 0.95 != check)
+		{
+			s->f->dreal.y *= 0.95;
+			s->f->dreal.x *= 0.95;
+			s->f->dimag.x *= 0.95;
+			s->f->dimag.y *= 0.95;
+
+			x -= IMAGE_WIDTH / 2;
+			y -= IMAGE_HEIGHT / 2;
+			double distance_x = 0.0;
+			double distance_y = 0.0;
+			if (y < 0)
+				distance_y = fabs(s->f->dimag.x - s->f->dimag.y) * (y * -1) / 800;
+			else
+				distance_y = fabs(s->f->dimag.x - s->f->dimag.y) * y  / 800;
+			if (x < 0)
+				distance_x = fabs(s->f->dreal.x - s->f->dreal.y) * (x * -1) / 800;
+			else
+				distance_x = fabs(s->f->dreal.x - s->f->dreal.y) * x / 800;	
+			if (x < 0)
+				pan(s, fabs(distance_x) / 10, 'R');
+			else if (x > 0)
+				pan(s, fabs(distance_x) / 10, 'L');
+			if (y < 0)
+				pan(s, fabs(distance_y) / 10, 'D');
+			else if (y > 0)
+				pan(s, fabs(distance_y) / 10, 'U');
+			calc_axis(s);
+			draw_mouse_hover_dimensions(s);
+			update_mapped_coordinates(s->f);
+			render_graphics(s);
+		}
 	}
 	else if (button == Button5)
 	{

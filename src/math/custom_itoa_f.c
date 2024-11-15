@@ -1,6 +1,6 @@
 #include "../../inc/fractol.h"
 
-void custom_itoa(char *dst, double value)
+static void custom_itoa(char *dst, double value)
 {
     int sign;
     
@@ -17,7 +17,7 @@ void custom_itoa(char *dst, double value)
     dst[2] = '.';
 }
 
-void custom_ftoa(char *dst, double value)
+static void custom_ftoa(char *dst, double value)
 {
     int pow;
     int integer;
@@ -37,21 +37,6 @@ void custom_ftoa(char *dst, double value)
 	} 
 	dst[9] = '\0';
 }
-int count_digits(int i)
-{
-	int counter;
-
-	counter = 0;
-	if (i < 0)
-		i *= -1;
-	while (i > 0)
-	{
-		i /= 10;
-		counter++;
-	}
-	return (counter);
-}
-
 
 void calc_fractal_coord(int x, int y, t_state *s)
 {
@@ -69,9 +54,10 @@ void calc_mouse_coord(int x, int y, t_state *s)
 	while (i >= 0)
 	{
 		s->f->mouse_x[i] = (x % 10) + '0';
-		s->f->mouse_y[i--] = (y % 10) + '0';
+		s->f->mouse_y[i] = (y % 10) + '0';
 		x /= 10;
 		y /= 10;
+		i--;
 	}
 	
 }
@@ -81,7 +67,6 @@ void calc_axis(t_state *s)
 	custom_ftoa(s->f->fractal_d_x_max, s->f->dreal.x);
 	custom_itoa(s->f->fractal_d_x_min, s->f->dreal.y);
 	custom_ftoa(s->f->fractal_d_x_min, s->f->dreal.y);
-
 	custom_itoa(s->f->fractal_d_y_max, s->f->dimag.x);
 	custom_ftoa(s->f->fractal_d_y_max, s->f->dimag.x);
 	custom_itoa(s->f->fractal_d_y_min, s->f->dimag.y);

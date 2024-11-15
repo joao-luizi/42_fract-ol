@@ -89,6 +89,7 @@ typedef struct s_fractal
     double          mapped_y[IMAGE_HEIGHT];
     char            mouse_x[4];
     char            mouse_y[4];
+    char            fractal_iterations[4];
     char            fractal_x[10];
     char            fractal_y[10];
     char            fractal_d_x_min[10];
@@ -147,20 +148,43 @@ void            visualize_color_scheme(void *mlx, void *win, t_fractal *f);
 void            lib_x_write_string(char *str, t_ipoint pos, t_img *section);
 
 //t_fractal_init.c
-void			clean_f(t_fractal *f);
 void			init_fractal(t_fractal *f, int argc, char **argv); 
 
 //t_fractal_aux.c
+void            clean_f(t_fractal *f);
 void			update_mapped_coordinates(t_fractal *f);
 void            set_gradient_colors(t_fractal *f);
+t_fractal_type  get_fractal_type(char *input) ;
+char            *get_fractal_string(t_fractal_type fractal_type) ;
+
+//parser.c
+int 			check_color_format(char *str);
+int				check_double_format(char *str);
 
 //fractol.c
 void			show_help_msg();
+void            clean_init(t_state *s);
 
 //math_aux.c
 unsigned int	hex_string_to_int(char *hex_string);
+int	            calc_mandelbrot(double cr, double ci, int max_iter);
+int	            calc_julia(t_fractal *f, double zr, double zi);
+int	            calc_burning_ship(double cr, double ci, int max_iter);
 
-//render_gui
+//double.aux
+double          custom_atof(char *str);
+
+//custom_itoa_f.c
+void            calc_axis(t_state *s);
+void            calc_mouse_coord(int x, int y, t_state *s);
+void            calc_fractal_coord(int x, int y, t_state *s);
+
+//render.aux
+char get_col_top(int i);
+void fill_rect(t_img *section, t_ipoint pos, t_ipoint dim, int color);
+void draw_rect(t_img *section, t_ipoint pos, t_ipoint dim);
+
+//render_gui.c
 void draw_mouse_hover_elements(t_state *s);
 void draw_static_elements(t_img *section);
 void draw_static_string(t_img *section, char *f_name);
@@ -188,50 +212,21 @@ int close_handler(t_state *s);
 
 //events.c
 int	mouse_move_handler(int x, int y, t_state *s);
-int count_digits(int i);
 void draw_apply(t_state *s);
 
-//custim_itoa_f.c
-void calc_mouse_coord(int x, int y, t_state *s);
-void calc_fractal_coord(int x, int y, t_state *s);
-void calc_axis(t_state *s);
-void custom_ftoa(char *dst, double value);
-void custom_itoa(char *dst, double value);
+
 
 void            get_character_pattern(char c, int letter[5][3]);
 void            draw_char_to_image(int x, int y, t_img *section, int char_map[5][3]);
-
-
-
-int	            calc_mandelbrot(double cr, double ci, int max_iter);
-int	            calc_julia(t_fractal *f, double zr, double zi);
-int	            calc_burning_ship(double cr, double ci, int max_iter);
-
-char 			*get_fractal_string(t_fractal_type fractal_type);
-t_fractal_type	get_fractal_type(char *input);
-void 			print_fractal(t_fractal *fractal);
-
-
-
-
-
-//void 			init_graphics(t_fractal fractal, t_graphics *graphics);
-//void            render_graphics(t_fractal *fractal, t_graphics *graphics);
 
 int             key_handler(int keysym, t_state *s);
 
 int             mouse_handler(int button, int x, int y, t_state *s);
 
 
-double          map(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
-t_dpoint        vector_sum(t_dpoint v1, t_dpoint v2);
-t_dpoint	    vector_square(t_dpoint v);
 
-int 			check_color_format(char *str);
-int				check_double_format(char *str);
-int 			hex_to_int(char *hex_string);
 
 double 			custom_atof(char *str);
-//t_dpoint        get_z(t_fractal_type ftype, t_dpoint z, t_dpoint c);
+
 
 #endif
