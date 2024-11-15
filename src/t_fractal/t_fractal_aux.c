@@ -63,12 +63,12 @@ void update_mapped_coordinates(t_fractal *f)
 	x = 0;
 	while (y < IMAGE_HEIGHT)
 	{
-		f->mapped_y[y] = f->dimag.x + (double)y * (f->dimag.y - f->dimag.x) / IMAGE_HEIGHT;
+		f->mapped_y[y] = (f->dimag.y + (double)y * ((f->dimag.x - f->dimag.y) / IMAGE_HEIGHT));
 		y++;
 	}
 	while (x < IMAGE_WIDTH)
 	{
-		f->mapped_x[x] = f->dreal.y + (double)x * (f->dreal.x - f->dreal.y) / IMAGE_WIDTH;
+		f->mapped_x[x] = (f->dreal.y + (double)x * ((f->dreal.x - f->dreal.y) / IMAGE_WIDTH));
 		x++;
 	}
 }

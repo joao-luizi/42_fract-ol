@@ -12,10 +12,10 @@ int	calc_mandelbrot(double cr, double ci, int max_iter)
 	n = 0;
 	while (n < max_iter)
 	{
-		if ((zr * zr + zi * zi) > 4.0)
+		if ((zr * zr + zi * zi) > 4.0 )
 			break ;
-		tmp = 2 * zr * zi + ci;
-		zr = zr * zr - zi * zi + cr;
+		tmp = (2 * zr * zi + ci);
+		zr = (zr * zr - zi * zi + cr);
 		zi = tmp;
 		n++;
 	}

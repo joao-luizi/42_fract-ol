@@ -197,6 +197,7 @@ void draw_color_rect(t_state *s);
 //render_fractal
 void render_graphics(t_state *s);
 
+
 //t_graphics_init.c
 void    clean_g(t_graphics *g);
 int     init_graphics(t_state *s);
@@ -207,11 +208,20 @@ void free_sections(t_graphics *g);
 
 //events_init
 void init_events(t_state *s);
-int close_handler(t_state *s);
 
 //events.c
 int	mouse_move_handler(int x, int y, t_state *s);
 void draw_apply(t_state *s);
+int close_handler(t_state *s);
+void	pan(t_state *s, double distance, char direction);
+void user_apply(int x, int y, t_state *s);
+void draw_apply(t_state *s);
+void user_color_a_r(int x, int y, t_state *s);
+void user_color_a_g(int x, int y, t_state *s);
+void user_color_a_b(int x, int y, t_state *s);
+void user_color_b_r(int x, int y, t_state *s);
+void user_color_b_g(int x, int y, t_state *s);
+void user_color_b_b(int x, int y, t_state *s);
 
 void            get_character_pattern(char c, int letter[5][3]);
 void            draw_char_to_image(int x, int y, t_img *section, int char_map[5][3]);

@@ -9,20 +9,14 @@ static void fill_standard_values(t_fractal *f)
 		f->dimag.y = -2.0;
 		f->dimag.x = f->dimag.y + (f->dreal.x - f->dreal.y) * IMAGE_HEIGHT / IMAGE_WIDTH;
 	}
-	else if (f->fractal_type == FRACTAL_MANDELBROT)
+	else 
 	{
 		f->dreal.y = -2.0;
 		f->dreal.x = 1.0;
 		f->dimag.y = -1.5;
 		f->dimag.x = f->dimag.y + (f->dreal.x - f->dreal.y) * IMAGE_HEIGHT / IMAGE_WIDTH;
 	}
-	else 
-	{
-		f->dreal.y = -2.0;
-		f->dreal.x = 1.0;
-		f->dimag.x = -1.5;
-		f->dimag.y = f->dimag.x + (f->dreal.x - f->dreal.y) * IMAGE_HEIGHT / IMAGE_WIDTH;
-	}
+	
 }
 
 static int extract_fractal_extras(t_fractal *f, int argc, char **argv)

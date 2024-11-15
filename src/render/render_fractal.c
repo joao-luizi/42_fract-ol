@@ -2,8 +2,8 @@
 
 static void	set_pixel_color(t_graphics *g, int x, int y, int color)
 {
-
 	int offs;
+	
 	offs = (y * g->f_section.len) + (x * (g->f_section.bpp / 8));
     *(unsigned int *)(g->f_section.pixels_ptr + offs) = color;
 } 
