@@ -38,6 +38,20 @@ static void custom_ftoa(char *dst, double value)
 	dst[9] = '\0';
 }
 
+void calc_iter(t_state *s)
+{
+	int i;
+	int x;
+
+	x = s->f->iterations,
+	i = 2;
+	while (i >= 0)
+	{
+		s->f->fractal_iter[i] = (x % 10) + '0';
+		x /= 10;
+		i--;
+	}
+}
 void calc_fractal_coord(int x, int y, t_state *s)
 {
 	custom_itoa(s->f->fractal_x, s->f->mapped_x[x]);
@@ -47,7 +61,6 @@ void calc_fractal_coord(int x, int y, t_state *s)
 }
 void calc_mouse_coord(int x, int y, t_state *s)
 {
-
 	int i;
 
 	i = 2;

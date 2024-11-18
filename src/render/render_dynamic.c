@@ -1,5 +1,10 @@
 #include "../../inc/fractol.h"
 
+void draw_iter(t_state *s)
+{
+	lib_x_write_string(s->f->fractal_iter, 0, 0, &s->g->iter_img);
+	mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->iter_img.img_ptr, 920, 60);
+}
 void draw_mouse_hover_elements(t_state *s)
 {	
 	lib_x_write_string(s->f->mouse_x, 0, 0 , &s->g->mousehvr_section_w);

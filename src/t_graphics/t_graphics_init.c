@@ -33,6 +33,7 @@ void clean_g(t_graphics *g)
 	clean_section(&g->ucb_b);
 	clean_section(&g->ucb_c);
 	clean_section(&g->uc_apply);
+	clean_section(&g->iter_img);
 }
 
 static void init_section(t_graphics *gfx, t_img *section, int width, int height)
@@ -58,6 +59,7 @@ static void init_sections(t_graphics *g)
 	init_section(g, &g->ucb_b, 15, 125);
 	init_section(g, &g->ucb_c, 95, 15);
 	init_section(g, &g->uc_apply, 100, 30);
+	init_section(g, &g->iter_img, 80, 20);
 }
 int init_graphics(t_state *s)
 {

@@ -89,7 +89,7 @@ typedef struct s_fractal
     double          mapped_y[IMAGE_HEIGHT];
     char            mouse_x[4];
     char            mouse_y[4];
-    char            fractal_iterations[4];
+    char            fractal_iter[4];
     char            fractal_x[10];
     char            fractal_y[10];
     char            fractal_d_x_min[10];
@@ -131,6 +131,7 @@ typedef struct s_graphics
     t_img	mousehvr_section_w;
     t_img	mousehvr_section_f;
     t_img	mousehvr_section_d;
+    t_img	iter_img;
     int     win_width;
     int     win_height;
 }	t_graphics;
@@ -178,6 +179,7 @@ double          custom_atof(char *str);
 void            calc_axis(t_state *s);
 void            calc_mouse_coord(int x, int y, t_state *s);
 void            calc_fractal_coord(int x, int y, t_state *s);
+void            calc_iter(t_state *s);
 
 //render.aux
 char get_col_top(int i);
@@ -192,6 +194,7 @@ void init_ui(t_state *s);
 void draw_mouse_hover_elements(t_state *s);
 void draw_mouse_hover_dimensions(t_state *s);
 void draw_color_rect(t_state *s);
+void draw_iter(t_state *s);
 
 
 //render_fractal

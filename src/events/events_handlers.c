@@ -37,12 +37,14 @@ int	key_handler(int keysym, t_state *s)
 	}
 	else if (keysym == XK_plus)
 	{
+
 		if (s->f->iterations + 10 > 100)
 			s->f->iterations = 100;
 		else
 		{
 			s->f->iterations += 10;
-			ft_printf("Iterations increased");
+			calc_iter(s);
+			draw_iter(s);
 			set_gradient_colors(s->f);
 		}
 	}
@@ -53,7 +55,9 @@ int	key_handler(int keysym, t_state *s)
 		else
 		{
 			s->f->iterations -= 10;
-			ft_printf("Iterations decerased");
+			calc_iter(s);
+			draw_iter(s);
+			set_gradient_colors(s->f);
 		}
 	}
 	update_mapped_coordinates(s->f);
@@ -85,32 +89,19 @@ int	mouse_handler(int button, int x, int y, t_state *s)
 	}
 	else if (button == Button4)
 	{
-		x -= IMAGE_WIDTH / 2;
-		y -= IMAGE_HEIGHT / 2;
-		double distance_x = 0.0;
-		double distance_y = 0.0;
-		if (y < 0)
-			distance_y = fabs(s->f->dimag.x - s->f->dimag.y) * (y * -1) / 800;
-		else
-			distance_y = fabs(s->f->dimag.x - s->f->dimag.y) * y  / 800;
-		if (x < 0)
-			distance_x = fabs(s->f->dreal.x - s->f->dreal.y) * (x * -1) / 800;
-		else
-			distance_x = fabs(s->f->dreal.x - s->f->dreal.y) * x / 800;
-		printf("AxisX: %f AxisY: %f \n", fabs(s->f->dreal.x - s->f->dreal.y),fabs(s->f->dimag.x - s->f->dimag.y));
-		printf("Distance: %f %f\n", distance_x, distance_y);
-		if (x < 0)
-			pan(s, fabs(distance_x), 'R');
-		else if (x > 0)
-			pan(s, fabs(distance_x), 'L');
-		if (y < 0)
-			pan(s, fabs(distance_y), 'D');
-		else if (y > 0)
-			pan(s, fabs(distance_y), 'U');
-		s->f->dreal.y *= 0.95;
-		s->f->dreal.x *= 0.95;
-		s->f->dimag.x *= 0.95;
-		s->f->dimag.y *= 0.95;
+		double real_range = s->f->dreal.x - s->f->dreal.y;
+    	double imag_range = s->f->dimag.x - s->f->dimag.y;
+
+    	// Calculate new range after zoom
+    	double new_real_range = real_range * 0.9;
+    	double new_imag_range = imag_range * 0.9;
+
+    	// Set new min and max values, centered on the target point
+    	s->f->dreal.y = s->f->mapped_x[x] - new_real_range / 2;
+    	s->f->dreal.x = s->f->mapped_x[x] + new_real_range / 2;
+    	s->f->dimag.y = s->f->mapped_y[y] - new_imag_range / 2;
+    	s->f->dimag.x = s->f->mapped_y[y] + new_imag_range / 2;
+
 		calc_axis(s);
 		draw_mouse_hover_dimensions(s);
 		update_mapped_coordinates(s->f);
@@ -118,18 +109,24 @@ int	mouse_handler(int button, int x, int y, t_state *s)
 	}
 	else if (button == Button5)
 	{
-		if (s->f->dreal.x - s->f->dreal.y < 5.0)
-		{
-			s->f->dreal.y *= 1.15;
-			s->f->dreal.x *= 1.15;
-			s->f->dimag.x *= 1.15;
-			s->f->dimag.y *= 1.15;
+		double real_range = s->f->dreal.x - s->f->dreal.y;
+    	double imag_range = s->f->dimag.x - s->f->dimag.y;
+
+    	// Calculate new range after zoom
+    	double new_real_range = real_range * 1.2;
+    	double new_imag_range = imag_range * 1.2;
+
+    	// Set new min and max values, centered on the target point
+    	s->f->dreal.y = s->f->mapped_x[x] - new_real_range / 2;
+    	s->f->dreal.x = s->f->mapped_x[x] + new_real_range / 2;
+    	s->f->dimag.y = s->f->mapped_y[y] - new_imag_range / 2;
+    	s->f->dimag.x = s->f->mapped_y[y] + new_imag_range / 2;
 			
-			calc_axis(s);
-			draw_mouse_hover_dimensions(s);
-			update_mapped_coordinates(s->f);
-			render_graphics(s);
-		}
+		calc_axis(s);
+		draw_mouse_hover_dimensions(s);
+		update_mapped_coordinates(s->f);
+		render_graphics(s);
+		
 	}
 	return (0);
 }
@@ -153,8 +150,6 @@ int	mouse_move_handler(int x, int y, t_state *s)
 		pos.y += 20;
 		lib_x_write_string(s->f->fractal_y, 0, 20, &s->g->mousehvr_section_f);
 		mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->mousehvr_section_f.img_ptr, 200, 810);
-		
-		
 	}
 	return (0);
 }

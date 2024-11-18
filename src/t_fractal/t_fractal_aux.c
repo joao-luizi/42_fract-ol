@@ -23,7 +23,7 @@ void clean_f(t_fractal *f)
 	ft_memset(f->fractal_d_x_min, 0, sizeof(f->fractal_d_x_min));
 	ft_memset(f->fractal_d_y_max, 0, sizeof(f->fractal_d_y_max));
 	ft_memset(f->fractal_d_y_min, 0, sizeof(f->fractal_d_y_min));
-	ft_memset(f->fractal_iterations, 0, sizeof(f->fractal_iterations));
+	ft_memset(f->fractal_iter, 0, sizeof(f->fractal_iter));
 }
 
 void set_gradient_colors(t_fractal *f)
@@ -41,8 +41,8 @@ void set_gradient_colors(t_fractal *f)
     end_g = (f->color_b >> 8) & 0xFF;
     end_b = f->color_b & 0xFF;
 
-    for (i = 0; i < f->iterations; i++)
-    {
+	while (i < f->iterations)
+	{
 		f->color_range[i] = 0;
         fraction = (double)i / (f->iterations - 1);
 
@@ -51,7 +51,7 @@ void set_gradient_colors(t_fractal *f)
         int b = start_b + fraction * (end_b - start_b);
 
         f->color_range[i] = (r << 16) | (g << 8) | b;
-    }
+	}
 }
 
 void update_mapped_coordinates(t_fractal *f)

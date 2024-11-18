@@ -41,6 +41,7 @@ int main(int argc, char **argv)
     init_fractal(&f, argc, argv);
     if (f.fractal_type == FRACTAL_INVALID)
         show_help_msg();
+    //ft_printf("%s", get_fractal_string(f.fractal_type));
     if (!init_graphics(&s))
     {
         ft_putendl_fd("\033[31mUnrecoverable graphics error.\033[0m", 1);

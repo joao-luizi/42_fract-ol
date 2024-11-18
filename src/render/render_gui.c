@@ -6,7 +6,6 @@ static void draw_static_string(t_img *section, char *f_name)
 	lib_x_write_string("fractal", 810, 20, section);
 	lib_x_write_string(f_name, 810, 40, section);
 	lib_x_write_string("Iterations", 810, 60, section);
-	lib_x_write_string("1000", 810, 80, section);
 	lib_x_write_string("mouse x", 10, 810, section);
 	lib_x_write_string("mouse y", 10, 830, section);
 	lib_x_write_string("real", 150, 810, section);
@@ -61,6 +60,8 @@ void init_ui(t_state *s)
 	calc_axis(s);
 	draw_mouse_hover_dimensions(s);
 	draw_color_rect(s);
+	calc_iter(s);
+	draw_iter(s);
 }
 
 
