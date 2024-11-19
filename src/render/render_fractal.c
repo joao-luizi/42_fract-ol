@@ -6,7 +6,7 @@
 /*   By: joaomigu <joaomigu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:38:46 by joaomigu          #+#    #+#             */
-/*   Updated: 2024/11/19 14:38:47 by joaomigu         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:10:26 by joaomigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 static void	set_pixel_color(t_graphics *g, int x, int y, int color)
 {
-	int offs;
-	
+	int	offs;
+
 	offs = (y * g->f_section.len) + (x * (g->f_section.bpp / 8));
-    *(unsigned int *)(g->f_section.pixels_ptr + offs) = color;
-} 
+	*(unsigned int *)(g->f_section.pixels_ptr + offs) = color;
+}
 
-
- static int	calculate_fractal(t_fractal *f, double pr, double pi)
+static int	calculate_fractal(t_fractal *f, double pr, double pi)
 {
 	int	iter;
 
@@ -34,11 +33,11 @@ static void	set_pixel_color(t_graphics *g, int x, int y, int color)
 	return (iter);
 }
 
-void render_graphics(t_state *s)
+void	render_graphics(t_state *s)
 {
-	int		x;
-	int		y;
-	int		iter;
+	int	x;
+	int	y;
+	int	iter;
 
 	y = 0;
 	while (y < IMAGE_HEIGHT)
@@ -47,11 +46,20 @@ void render_graphics(t_state *s)
 		x = 0;
 		while (x < IMAGE_WIDTH)
 		{
-			iter = calculate_fractal(s->f, s->f->mapped_x[x], s->f->mapped_y[y]);
+			iter = calculate_fractal(s->f, s->f->mapped_x[x],
+					s->f->mapped_y[y]);
 			set_pixel_color(s->g, x, y, s->f->color_range[iter]);
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->f_section.img_ptr, 0, 0);
+	mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win,
+		s->g->f_section.img_ptr, 0, 0);
+}
+
+void	draw_iter(t_state *s)
+{
+	lib_x_write_string(s->f->fractal_iter, 0, 0, &s->g->iter_img);
+	mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win,
+		s->g->iter_img.img_ptr, 920, 60);
 }

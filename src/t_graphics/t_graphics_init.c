@@ -6,13 +6,13 @@
 /*   By: joaomigu <joaomigu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:38:59 by joaomigu          #+#    #+#             */
-/*   Updated: 2024/11/19 14:39:00 by joaomigu         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:21:46 by joaomigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/fractol.h"
 
-static void clean_section(t_img *sec)
+static void	clean_section(t_img *sec)
 {
 	sec->bpp = 0;
 	sec->endian = 0;
@@ -25,7 +25,7 @@ static void clean_section(t_img *sec)
 	sec->top = 0;
 }
 
-void clean_g(t_graphics *g)
+void	clean_g(t_graphics *g)
 {
 	g->mlx_conn = NULL;
 	g->mlx_win = NULL;
@@ -48,18 +48,20 @@ void clean_g(t_graphics *g)
 	clean_section(&g->iter_img);
 }
 
-static void init_section(t_graphics *gfx, t_img *section, int width, int height)
+static void	init_section(t_graphics *gfx, t_img *section, int width, int height)
 {
-    section->img_ptr = mlx_new_image(gfx->mlx_conn, width, height);
-    section->pixels_ptr = mlx_get_data_addr(section->img_ptr, &section->bpp, &section->len, &section->endian);
+	section->img_ptr = mlx_new_image(gfx->mlx_conn, width, height);
+	section->pixels_ptr = mlx_get_data_addr(section->img_ptr, &section->bpp,
+			&section->len, &section->endian);
 	section->section_height = height;
 	section->section_width = width;
 }
-static void init_sections(t_graphics *g)
+
+static void	init_sections(t_graphics *g)
 {
-	init_section(g, &g->static_gui, WINDOW_WIDTH, WINDOW_HEIGHT); 
-	init_section(g, &g->f_section, IMAGE_WIDTH, IMAGE_HEIGHT); 
-	init_section(g, &g->mousehvr_section_w, 50, 50); 
+	init_section(g, &g->static_gui, WINDOW_WIDTH, WINDOW_HEIGHT);
+	init_section(g, &g->f_section, IMAGE_WIDTH, IMAGE_HEIGHT);
+	init_section(g, &g->mousehvr_section_w, 50, 50);
 	init_section(g, &g->mousehvr_section_f, 100, 100);
 	init_section(g, &g->mousehvr_section_d, 400, 100);
 	init_section(g, &g->uca_r, 15, 125);
@@ -73,15 +75,16 @@ static void init_sections(t_graphics *g)
 	init_section(g, &g->uc_apply, 100, 30);
 	init_section(g, &g->iter_img, 80, 20);
 }
-int init_graphics(t_state *s)
+
+int	init_graphics(t_state *s)
 {
 	s->g->mlx_conn = mlx_init();
 	if (!s->g->mlx_conn)
 		return (FALSE);
 	s->g->win_height = WINDOW_HEIGHT;
 	s->g->win_width = WINDOW_WIDTH;
- 	s->g->mlx_win = mlx_new_window(s->g->mlx_conn,
-			s->g->win_width, s->g->win_height, get_fractal_string(s->f->fractal_type)); 
+	s->g->mlx_win = mlx_new_window(s->g->mlx_conn, s->g->win_width,
+			s->g->win_height, get_fractal_string(s->f->fractal_type));
 	if (!s->g->mlx_win)
 	{
 		mlx_destroy_display(s->g->mlx_conn);
@@ -99,5 +102,3 @@ int init_graphics(t_state *s)
 	}
 	return (TRUE);
 }
-
-

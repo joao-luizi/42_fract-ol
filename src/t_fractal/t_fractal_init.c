@@ -6,37 +6,38 @@
 /*   By: joaomigu <joaomigu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:38:54 by joaomigu          #+#    #+#             */
-/*   Updated: 2024/11/19 14:38:55 by joaomigu         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:11:22 by joaomigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/fractol.h"
 
-static void fill_standard_values(t_fractal *f)
+static void	fill_standard_values(t_fractal *f)
 {
 	if (f->fractal_type == FRACTAL_JULIA)
 	{
 		f->dreal.y = -2.0;
 		f->dreal.x = 2.0;
 		f->dimag.y = -2.0;
-		f->dimag.x = f->dimag.y + (f->dreal.x - f->dreal.y) * IMAGE_HEIGHT / IMAGE_WIDTH;
+		f->dimag.x = f->dimag.y + (f->dreal.x - f->dreal.y) * IMAGE_HEIGHT
+			/ IMAGE_WIDTH;
 	}
-	else 
+	else
 	{
 		f->dreal.y = -2.0;
 		f->dreal.x = 1.0;
 		f->dimag.y = -1.5;
-		f->dimag.x = f->dimag.y + (f->dreal.x - f->dreal.y) * IMAGE_HEIGHT / IMAGE_WIDTH;
+		f->dimag.x = f->dimag.y + (f->dreal.x - f->dreal.y) * IMAGE_HEIGHT
+			/ IMAGE_WIDTH;
 	}
-	
 }
 
-static int extract_fractal_extras(t_fractal *f, int argc, char **argv)
+static int	extract_fractal_extras(t_fractal *f, int argc, char **argv)
 {
 	if (f->fractal_type == FRACTAL_JULIA)
 	{
 		f->julia_c.x = -0.8;
- 		f->julia_c.y = 0.2;
+		f->julia_c.y = 0.2;
 		if (argc == 4 || argc == 6)
 		{
 			if (!check_double_format(argv[2]) && !check_double_format(argv[3]))
@@ -48,7 +49,8 @@ static int extract_fractal_extras(t_fractal *f, int argc, char **argv)
 				if (f->julia_c.y < -2.0 || f->julia_c.y > 2.0)
 					return (FALSE);
 			}
-			else if (check_color_format(argv[2]) && check_color_format(argv[3]) && argc == 4)
+			else if (check_color_format(argv[2]) && check_color_format(argv[3])
+				&& argc == 4)
 				return (TRUE);
 			else
 				return (FALSE);
@@ -56,13 +58,15 @@ static int extract_fractal_extras(t_fractal *f, int argc, char **argv)
 	}
 	return (TRUE);
 }
-static int extract_user_colors_julia(t_fractal *f, int argc, char **argv)
+
+static int	extract_user_colors_julia(t_fractal *f, int argc, char **argv)
 {
 	if (argc == 4)
 	{
 		if (!check_double_format(argv[2]) && !check_double_format(argv[3]))
 			return (TRUE);
-		else if (check_color_format(argv[2]) && check_color_format(argv[3]) && argc == 4)
+		else if (check_color_format(argv[2]) && check_color_format(argv[3])
+			&& argc == 4)
 		{
 			f->color_a = hex_string_to_int(argv[2]);
 			f->color_b = hex_string_to_int(argv[3]);
@@ -83,7 +87,7 @@ static int extract_user_colors_julia(t_fractal *f, int argc, char **argv)
 	return (TRUE);
 }
 
-static int extract_user_colors(t_fractal *f, int argc, char **argv)
+static int	extract_user_colors(t_fractal *f, int argc, char **argv)
 {
 	f->color_a = COLOR_CYAN;
 	f->color_b = COLOR_DARK_RED;
@@ -107,7 +111,7 @@ static int extract_user_colors(t_fractal *f, int argc, char **argv)
 	return (TRUE);
 }
 
-void  init_fractal(t_fractal *f, int argc, char **argv)
+void	init_fractal(t_fractal *f, int argc, char **argv)
 {
 	f->fractal_type = get_fractal_type(argv[1]);
 	if (f->fractal_type == FRACTAL_INVALID)

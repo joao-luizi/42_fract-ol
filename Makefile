@@ -23,11 +23,15 @@ SRC				=	$(addprefix $(SRC_DIR)/math/, math_aux.c) $(addprefix $(SRC_DIR)/math/,
 					$(addprefix $(SRC_DIR)/t_graphics/, t_graphics_init.c) $(addprefix $(SRC_DIR)/t_graphics/, t_graphics_free.c)							\
 					$(addprefix $(SRC_DIR)/events/, events_aux.c) $(addprefix $(SRC_DIR)/events/, events_init.c) 											\
 					$(addprefix $(SRC_DIR)/events/, events_color_a.c) $(addprefix $(SRC_DIR)/events/, events_color_b.c)										\
-					$(addprefix $(SRC_DIR)/asc_strings/, letters.c) $(addprefix $(SRC_DIR)/asc_strings/, digits.c) 											\
-					$(addprefix $(SRC_DIR)/asc_strings/, patterns.c) $(addprefix $(SRC_DIR)/asc_strings/, write_string.c) 									\
+					$(addprefix $(SRC_DIR)/asc_strings/, digits_0_4.c) $(addprefix $(SRC_DIR)/asc_strings/, digits_5_9.c) 									\
+					$(addprefix $(SRC_DIR)/asc_strings/, letters_a_e.c) $(addprefix $(SRC_DIR)/asc_strings/, letters_f_j.c) 								\
+					$(addprefix $(SRC_DIR)/asc_strings/, letters_k_o.c) $(addprefix $(SRC_DIR)/asc_strings/, letters_p_t.c) 								\
+					$(addprefix $(SRC_DIR)/asc_strings/, letters_u_x.c) $(addprefix $(SRC_DIR)/asc_strings/, letters_y_z.c) 								\
+					$(addprefix $(SRC_DIR)/asc_strings/, patterns.c) $(addprefix $(SRC_DIR)/asc_strings/, symbols.c) 										\
+					$(addprefix $(SRC_DIR)/asc_strings/, write_string.c) 																					\
 					$(addprefix $(SRC_DIR)/render/, render_gui.c) $(addprefix $(SRC_DIR)/render/, render_fractal.c) 										\
 					$(addprefix $(SRC_DIR)/render/, render_aux.c) $(addprefix $(SRC_DIR)/render/, render_dynamic.c) 										\
-					$(addprefix $(SRC_DIR)/, fractol.c)	 																									\
+					$(addprefix $(SRC_DIR)/, fractol.c)
 
 OBJS = 				${patsubst ${SRC_DIR}/%.c, ${OBJ_DIR}/%.o, ${SRC}}
 

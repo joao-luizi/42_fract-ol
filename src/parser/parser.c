@@ -6,17 +6,19 @@
 /*   By: joaomigu <joaomigu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:38:37 by joaomigu          #+#    #+#             */
-/*   Updated: 2024/11/19 14:38:38 by joaomigu         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:04:21 by joaomigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/fractol.h"
-static int is_hex_digit(char c)
-{
-	int i;
 
+static int	is_hex_digit(char c)
+{
+	int		i;
+	char	*hex;
+
+	hex = "abcdefABCDEF0123456789";
 	i = 0;
-	char hex[] = "abcdefABCDEF0123456789";
 	while (hex[i])
 	{
 		if (c == hex[i])
@@ -25,15 +27,16 @@ static int is_hex_digit(char c)
 	}
 	return (FALSE);
 }
-int check_color_format(char *str)
+
+int	check_color_format(char *str)
 {
-	int i;
-    int length;
+	int	i;
+	int	length;
 
 	length = ft_strlen(str);
-    if (length == 0 || (str[0] != '0' && str[1] != 'x'))
+	if (length == 0 || (str[0] != '0' && str[1] != 'x'))
 		return (FALSE);
-	length -=2;
+	length -= 2;
 	if (length != 6)
 		return (FALSE);
 	i = 2;
@@ -43,19 +46,21 @@ int check_color_format(char *str)
 			return (FALSE);
 		i++;
 	}
-    return (TRUE);
+	return (TRUE);
 }
 
 /**
- * @brief Checks if the character is a digit and increments 
+ * @brief Checks if the character is a digit and increments
  * the count of digits before or after the decimal point.
- * 
+ *
  * @param digit_before Pointer to the count of digits before the decimal point.
  * @param digit_after Pointer to the count of digits after the decimal point.
  * @param c The current character in the string.
+ *
  * @param has_point Flag indicating whether a decimal point has been encountered.
  */
-static void check_digits(int *digit_before, int *digit_after, char c, int has_point)
+static void	check_digits(int *digit_before, int *digit_after, char c,
+		int has_point)
 {
 	if (ft_isdigit(c))
 	{
@@ -66,13 +71,13 @@ static void check_digits(int *digit_before, int *digit_after, char c, int has_po
 	}
 }
 
-int check_double_format(char *str)
+int	check_double_format(char *str)
 {
-	int digit_before;
-	int digit_after;
-	int has_point;
-	int has_sign;
-	int i;
+	int	digit_before;
+	int	digit_after;
+	int	has_point;
+	int	has_sign;
+	int	i;
 
 	digit_after = 0;
 	digit_before = 0;
@@ -90,7 +95,6 @@ int check_double_format(char *str)
 			has_sign++;
 		i++;
 	}
-	return (digit_before == 0 || digit_after == 0 || digit_before > 1 || digit_after > 2
-		|| has_point > 1 || has_sign > 1);
+	return (digit_before == 0 || digit_after == 0 || digit_before > 1
+		|| digit_after > 2 || has_point > 1 || has_sign > 1);
 }
-
