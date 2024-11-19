@@ -21,12 +21,13 @@ SRC				=	$(addprefix $(SRC_DIR)/math/, math_aux.c) $(addprefix $(SRC_DIR)/math/,
 					$(addprefix $(SRC_DIR)/t_fractal/, t_fractal_aux.c) $(addprefix $(SRC_DIR)/t_fractal/, t_fractal_init.c)								\
 					$(addprefix $(SRC_DIR)/parser/, parser.c)																								\
 					$(addprefix $(SRC_DIR)/t_graphics/, t_graphics_init.c) $(addprefix $(SRC_DIR)/t_graphics/, t_graphics_free.c)							\
-					$(addprefix $(SRC_DIR)/events/, events.c) $(addprefix $(SRC_DIR)/events/, events_init.c) $(addprefix $(SRC_DIR)/events/, events_handlers.c) \
+					$(addprefix $(SRC_DIR)/events/, events_aux.c) $(addprefix $(SRC_DIR)/events/, events_init.c) 											\
+					$(addprefix $(SRC_DIR)/events/, events_color_a.c) $(addprefix $(SRC_DIR)/events/, events_color_b.c)										\
 					$(addprefix $(SRC_DIR)/asc_strings/, letters.c) $(addprefix $(SRC_DIR)/asc_strings/, digits.c) 											\
 					$(addprefix $(SRC_DIR)/asc_strings/, patterns.c) $(addprefix $(SRC_DIR)/asc_strings/, write_string.c) 									\
 					$(addprefix $(SRC_DIR)/render/, render_gui.c) $(addprefix $(SRC_DIR)/render/, render_fractal.c) 										\
 					$(addprefix $(SRC_DIR)/render/, render_aux.c) $(addprefix $(SRC_DIR)/render/, render_dynamic.c) 										\
-					$(addprefix $(SRC_DIR)/, fractol.c)	 																								\
+					$(addprefix $(SRC_DIR)/, fractol.c)	 																									\
 
 OBJS = 				${patsubst ${SRC_DIR}/%.c, ${OBJ_DIR}/%.o, ${SRC}}
 

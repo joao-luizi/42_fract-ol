@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   t_fractal_aux.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joaomigu <joaomigu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/19 14:38:51 by joaomigu          #+#    #+#             */
+/*   Updated: 2024/11/19 14:55:19 by joaomigu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/fractol.h"
 
 void clean_f(t_fractal *f)
@@ -30,27 +42,21 @@ void set_gradient_colors(t_fractal *f)
 {
     int i;
     double fraction;
-    int  start_r, start_g, start_b;
-    int  end_r, end_g, end_b;
-
-    start_r = (f->color_a >> 16) & 0xFF;
-    start_g = (f->color_a >> 8) & 0xFF;
-    start_b = f->color_a & 0xFF;
-
-    end_r = (f->color_b >> 16) & 0xFF;
-    end_g = (f->color_b >> 8) & 0xFF;
-    end_b = f->color_b & 0xFF;
-
+	int start[3] = {((f->color_a >> 16) & 0xFF),((f->color_a >> 8) & 0xFF),(f->color_a & 0xFF)};
+	int end[3] = {((f->color_b >> 16) & 0xFF),((f->color_b >> 8) & 0xFF),(f->color_b & 0xFF)};
+	int r;
+    int g;
+    int b;
+	i = 0;
 	while (i < f->iterations)
 	{
 		f->color_range[i] = 0;
         fraction = (double)i / (f->iterations - 1);
-
-        int r = start_r + fraction * (end_r - start_r);
-        int g = start_g + fraction * (end_g - start_g);
-        int b = start_b + fraction * (end_b - start_b);
-
+         r = start[0] + fraction * (end[0] - start[0]);
+         g = start[1] + fraction * (end[1]  - start[1]);
+         b = start[2] + fraction * (end[2]  - start[2]);
         f->color_range[i] = (r << 16) | (g << 8) | b;
+		i++;
 	}
 }
 

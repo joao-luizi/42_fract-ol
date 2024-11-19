@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joaomigu <joaomigu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/19 14:39:16 by joaomigu          #+#    #+#             */
+/*   Updated: 2024/11/19 14:39:17 by joaomigu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FRACTAL_O_H
 #define FRACTAL_O_H
 
@@ -194,6 +206,8 @@ void init_ui(t_state *s);
 void draw_mouse_hover_elements(t_state *s);
 void draw_mouse_hover_dimensions(t_state *s);
 void draw_color_rect(t_state *s);
+void draw_color_rect_a(t_state *s);
+void draw_color_rect_b(t_state *s);
 void draw_iter(t_state *s);
 
 
@@ -211,25 +225,27 @@ void free_sections(t_graphics *g);
 
 //events_init
 void init_events(t_state *s);
+int	mouse_move_handler(int x, int y, t_state *s);
+int             key_handler(int keysym, t_state *s);
+int             mouse_handler(int button, int x, int y, t_state *s);
+int close_handler(t_state *s);
+
+//events_color.c
+void draw_apply(t_state *s);
+void user_apply(int x, int y, t_state *s);
 
 //events.c
-int	mouse_move_handler(int x, int y, t_state *s);
-void draw_apply(t_state *s);
-int close_handler(t_state *s);
-void	pan(t_state *s, double distance, char direction);
-void user_apply(int x, int y, t_state *s);
-void draw_apply(t_state *s);
-void user_color_a_r(int x, int y, t_state *s);
-void user_color_a_g(int x, int y, t_state *s);
-void user_color_a_b(int x, int y, t_state *s);
-void user_color_b_r(int x, int y, t_state *s);
-void user_color_b_g(int x, int y, t_state *s);
-void user_color_b_b(int x, int y, t_state *s);
+int user_color_a(int x, int y, t_state *s);
+int user_color_b(int x, int y, t_state *s);
+
+//events_aux.c
+int     key_handler_iter_check(int keysym, t_state *s);
+int     key_handler_pan_check(int keysym, t_state *s);
+void    zoom_handler(int button, int x, int y, t_state *s);
+void	pan_handler(t_state *s, double distance, char direction);
 
 void            get_character_pattern(char c, int letter[5][3]);
 void            draw_char_to_image(int x, int y, t_img *section, int char_map[5][3]);
-int             key_handler(int keysym, t_state *s);
-int             mouse_handler(int button, int x, int y, t_state *s);
 double 			custom_atof(char *str);
 
 

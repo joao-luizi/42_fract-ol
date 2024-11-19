@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_dynamic.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joaomigu <joaomigu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/19 14:38:43 by joaomigu          #+#    #+#             */
+/*   Updated: 2024/11/19 14:38:44 by joaomigu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/fractol.h"
 
 void draw_iter(t_state *s)
@@ -50,7 +62,7 @@ void draw_color_rect(t_state *s)
 	
 	draw_color(((s->f->color_a_edit  >> 16) & 0xFF), &s->g->uca_r, 0x00FF0000);
 	draw_color(((s->f->color_a_edit  >> 8) & 0xFF), &s->g->uca_g, 0x0000FF00);
-	draw_color((s->f->color_a_edit& 0xFF), &s->g->uca_b, 0x000000FF);
+	draw_color((s->f->color_a_edit & 0xFF), &s->g->uca_b, 0x000000FF);
 	draw_color(((s->f->color_b_edit  >> 16) & 0xFF), &s->g->ucb_r, 0x00FF0000);
 	draw_color(((s->f->color_b_edit  >> 8) & 0xFF), &s->g->ucb_g, 0x0000FF00);
 	draw_color((s->f->color_b_edit& 0xFF), &s->g->ucb_b, 0x000000FF);
@@ -69,5 +81,45 @@ void draw_color_rect(t_state *s)
 	mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->uca_b.img_ptr, 933, 216);
 	mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->uca_c.img_ptr, 843, 382);
 }
+
+void draw_color_rect_a(t_state *s)
+{
+	t_ipoint pos;
+	t_ipoint dim;
+	
+	draw_color(((s->f->color_a_edit  >> 16) & 0xFF), &s->g->uca_r, 0x00FF0000);
+	draw_color(((s->f->color_a_edit  >> 8) & 0xFF), &s->g->uca_g, 0x0000FF00);
+	draw_color((s->f->color_a_edit & 0xFF), &s->g->uca_b, 0x000000FF);
+	pos.x = 0;
+	pos.y = 0;
+	dim.x = 95;
+	dim.y = 15;
+	fill_rect(&s->g->uca_c, pos, dim, s->f->color_a_edit);
+	mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->uca_r.img_ptr, 833, 216);
+	mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->uca_g.img_ptr, 883, 216);
+	mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->uca_b.img_ptr, 933, 216);
+	mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->uca_c.img_ptr, 843, 382);
+}
+
+void draw_color_rect_b(t_state *s)
+{
+	t_ipoint pos;
+	t_ipoint dim;
+	
+	draw_color(((s->f->color_b_edit  >> 16) & 0xFF), &s->g->ucb_r, 0x00FF0000);
+	draw_color(((s->f->color_b_edit  >> 8) & 0xFF), &s->g->ucb_g, 0x0000FF00);
+	draw_color((s->f->color_b_edit& 0xFF), &s->g->ucb_b, 0x000000FF);
+	pos.x = 0;
+	pos.y = 0;
+	dim.x = 95;
+	dim.y = 15;
+	fill_rect(&s->g->ucb_c, pos, dim, s->f->color_b_edit);
+	mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->ucb_r.img_ptr, 833, 496);
+	mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->ucb_g.img_ptr, 883, 496);
+	mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->ucb_b.img_ptr, 933, 496);
+	mlx_put_image_to_window(s->g->mlx_conn, s->g->mlx_win, s->g->ucb_c.img_ptr, 843, 662);
+
+}
+
 
 
