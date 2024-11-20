@@ -1,24 +1,24 @@
 .SILENT:
 
-CC			=	cc
-CFLAGS 		= -Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_PATH) 
-RM			=	rm -rf
+CC				=	cc
+CFLAGS 			= -Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_PATH) 
+RM				=	rm -rf
 
-SRC_DIR		= ./src
-OBJ_DIR 	= ./obj
-INC_DIR		= ./inc
-BIN_DIR		= ./bin
-LIB_DIR		= ./lib
+SRC_DIR			= ./src
+OBJ_DIR 		= ./obj
+INC_DIR			= ./inc
+BIN_DIR			= ./bin
+LIB_DIR			= ./lib
 NAME			=	${BIN_DIR}/fractol
-NAME_BONUS		=	${BIN_DIR}/fractol
+NAME_BONUS		=	${BIN_DIR}/fractol_bonus
 
 LIFT_PATH		=	$(addprefix $(LIB_DIR)/, libft/)
 
 MLX_PATH		=	$(addprefix $(LIB_DIR)/, minilibx-linux/)
 
-LINKS = -lmlx -lXext -lX11 -L$(MLX_PATH) -lmlx -L$(LIFT_PATH)lib -lft -lm
+LINKS 			= -lmlx -lXext -lX11 -L$(MLX_PATH) -lmlx -L$(LIFT_PATH)lib -lft -lm
 
-SRC				=	$(addprefix $(SRC_DIR)/math/, math_aux.c) $(addprefix $(SRC_DIR)/math/, double_aux.c) $(addprefix $(SRC_DIR)/math/, custom_itoa_f.c)	\
+SRC			=		$(addprefix $(SRC_DIR)/math/, math_aux.c) $(addprefix $(SRC_DIR)/math/, double_aux.c) $(addprefix $(SRC_DIR)/math/, custom_itoa_f.c)	\
 					$(addprefix $(SRC_DIR)/t_fractal/, t_fractal_aux.c) $(addprefix $(SRC_DIR)/t_fractal/, t_fractal_init.c)								\
 					$(addprefix $(SRC_DIR)/parser/, parser.c)																								\
 					$(addprefix $(SRC_DIR)/t_graphics/, t_graphics_init.c) $(addprefix $(SRC_DIR)/t_graphics/, t_graphics_free.c)							\
@@ -34,7 +34,7 @@ SRC				=	$(addprefix $(SRC_DIR)/math/, math_aux.c) $(addprefix $(SRC_DIR)/math/,
 					$(addprefix $(SRC_DIR)/render/, render_aux.c) $(addprefix $(SRC_DIR)/render/, render_dynamic.c) 										\
 					$(addprefix $(SRC_DIR)/, fractol.c)
 
-SRC_BONUS		=	$(addprefix $(SRC_DIR)/math/, math_aux_bonus.c) $(addprefix $(SRC_DIR)/math/, double_aux_bonus.c) $(addprefix $(SRC_DIR)/math/, custom_itoa_f_bonus.c)	\
+SRC_BONUS	=		$(addprefix $(SRC_DIR)/math/, math_aux_bonus.c) $(addprefix $(SRC_DIR)/math/, double_aux_bonus.c) $(addprefix $(SRC_DIR)/math/, custom_itoa_f_bonus.c)	\
 					$(addprefix $(SRC_DIR)/t_fractal/, t_fractal_aux_bonus.c) $(addprefix $(SRC_DIR)/t_fractal/, t_fractal_init_bonus.c)								\
 					$(addprefix $(SRC_DIR)/parser/, parser_bonus.c)																								\
 					$(addprefix $(SRC_DIR)/t_graphics/, t_graphics_init_bonus.c) $(addprefix $(SRC_DIR)/t_graphics/, t_graphics_free_bonus.c)							\
@@ -52,49 +52,47 @@ SRC_BONUS		=	$(addprefix $(SRC_DIR)/math/, math_aux_bonus.c) $(addprefix $(SRC_D
 
 OBJS 		= 		${patsubst ${SRC_DIR}/%.c, ${OBJ_DIR}/%.o, ${SRC}}
 
-OBJS_BONUS	= 		${patsubst ${SRC_DIR}/.c, ${OBJ_DIR}/%.o, ${SRC_BONUS}}
+OBJS_BONUS	= 		${patsubst ${SRC_DIR}/%.c, ${OBJ_DIR}/%.o, ${SRC_BONUS}}
 
 
-$(NAME):			$(OBJS) | $(BIN_DIR)
-					printf 'Compiling $(NAME)\n'
-					$(CC) $(CFLAGS) $^ -o $@ $(LINKS)
+all:			libs $(NAME)
 
-$(NAME_BONUS):		$(OBJS_BONUS) | $(BIN_DIR)
-					printf 'Compiling $(NAME_BONUS)\n'
-					$(CC) $(CFLAGS) $^ -o $@ $(LINKS)
 
-$(OBJ_DIR)/%.o:		$(SRC_DIR)/%.c
-					make libs
-					printf "Compiling $(NAME) objects... %-33.33s\r" $(notdir $@)
-					@mkdir -p $(dir $@)
-					$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
+				printf "Compiling $(NAME) objects... %-33.33s\r" $(notdir $@)
+				@mkdir -p $(dir $@)
+				$(CC) $(CFLAGS) -c $< -o $@
 
 $(BIN_DIR):
-	@mkdir -p $(BIN_DIR)
+				@mkdir -p $(BIN_DIR)
 
-info: 	
-		$(info OBJS: $(OBJS))
-		$(info OBJS_BONUS: $(OBJS_BONUS))
 
-all:				$(NAME)
+
+bonus: 			libs $(NAME_BONUS)
 
 libs:
-					make -C $(MLX_PATH)
-					make -C $(LIFT_PATH)
+				make -C $(MLX_PATH)
+				make -C $(LIFT_PATH)
 
-bonus: 				$(NAME_BONUS)
+$(NAME):		libs $(OBJS) | $(BIN_DIR)
+				printf 'Compiling $(NAME)\n'
+				$(CC) $(CFLAGS) $(OBJS) -o $@ $(LINKS)
 
+$(NAME_BONUS):	libs $(OBJS_BONUS) | $(BIN_DIR)
+				printf 'Compiling $(NAME_BONUS)\n'
+				$(CC) $(CFLAGS) $(OBJS_BONUS) -o $@ $(LINKS)
 
 
 clean:
-					@if [ -d $(OBJ_DIR) ]; then $(RM) $(OBJ_DIR); fi
-					@if [ -f $(NAME) ]; then $(RM) $(NAME); fi
+				@if [ -d $(OBJ_DIR) ]; then $(RM) $(OBJ_DIR); fi
+				@if [ -f $(NAME) ]; then $(RM) $(NAME); fi
+				@if [ -f $(NAME_BONUS) ]; then $(RM) $(NAME_BONUS); fi
 
-fclean:				clean
-					$(RM) $(NAME)
-					make fclean -C $(LIFT_PATH)
-					make clean -C $(MLX_PATH)
+fclean:			clean
+				$(RM) $(NAME)
+				make fclean -C $(LIFT_PATH)
+				make clean -C $(MLX_PATH)
 
-re:					fclean all
+re:				fclean all
 
-.PHONY:				all clean fclean re
+.PHONY:			all clean fclean re
