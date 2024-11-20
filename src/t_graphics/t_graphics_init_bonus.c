@@ -1,17 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_graphics_init.c                                  :+:      :+:    :+:   */
+/*   t_graphics_init_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaomigu <joaomigu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:38:59 by joaomigu          #+#    #+#             */
-/*   Updated: 2024/11/19 18:21:46 by joaomigu         ###   ########.fr       */
+/*   Updated: 2024/11/20 13:13:44 by joaomigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/fractol.h"
 
+/**
+ * @brief Resets a section's attributes to 
+ * their default uninitialized values.
+ *
+ * This function clears the attributes of a 
+ * given `t_img` section, setting pointers 
+ * to `NULL` and numerical values to `0`.
+ *
+ * @param sec Pointer to the section (`t_img`) to be cleaned.
+ */
 static void	clean_section(t_img *sec)
 {
 	sec->bpp = 0;
@@ -25,6 +35,18 @@ static void	clean_section(t_img *sec)
 	sec->top = 0;
 }
 
+/**
+ * @brief Cleans and resets the graphics
+ *  structure to its default state.
+ *
+ * This function clears all attributes of 
+ * the `t_graphics` structure and 
+ * cleans up all associated sections by 
+ * calling `clean_section`.
+ *
+ * @param g Pointer to the graphics structure 
+ * (`t_graphics`) to be cleaned.
+ */
 void	clean_g(t_graphics *g)
 {
 	g->mlx_conn = NULL;
@@ -48,6 +70,20 @@ void	clean_g(t_graphics *g)
 	clean_section(&g->iter_img);
 }
 
+/**
+ * @brief Initializes a specific 
+ * image section with the given dimensions.
+ *
+ * This function creates a new image
+ *  using the MiniLibX library, assigns it to 
+ * the section, and retrieves its pixel data.
+ *
+ * @param gfx Pointer to the graphics 
+ * structure containing the MiniLibX connection.
+ * @param section Pointer to the section (`t_img`) to be initialized.
+ * @param width Width of the section in pixels.
+ * @param height Height of the section in pixels.
+ */
 static void	init_section(t_graphics *gfx, t_img *section, int width, int height)
 {
 	section->img_ptr = mlx_new_image(gfx->mlx_conn, width, height);
@@ -57,6 +93,17 @@ static void	init_section(t_graphics *gfx, t_img *section, int width, int height)
 	section->section_width = width;
 }
 
+/**
+ * @brief Initializes all image sections 
+ * in the graphics structure.
+ *
+ * This function initializes multiple image 
+ * sections with predefined dimensions, 
+ * preparing them for use in rendering or GUI display.
+ *
+ * @param g Pointer to the graphics structure 
+ * containing the sections.
+ */
 static void	init_sections(t_graphics *g)
 {
 	init_section(g, &g->static_gui, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -76,6 +123,19 @@ static void	init_sections(t_graphics *g)
 	init_section(g, &g->iter_img, 80, 20);
 }
 
+/**
+ * @brief Initializes the graphics system and all its components.
+ *
+ * This function sets up the MiniLibX connection, creates the program's main 
+ * window, initializes sections for rendering and UI, and checks their validity.
+ *
+ * @param s Pointer to the program's state structure containing 
+ * graphics information.
+ * 
+ * @return Returns `TRUE` on successful initialization, `FALSE` otherwise.
+ * 
+ * @note Frees resources and handles cleanup if initialization fails.
+ */
 int	init_graphics(t_state *s)
 {
 	s->g->mlx_conn = mlx_init();

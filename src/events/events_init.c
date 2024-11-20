@@ -6,12 +6,30 @@
 /*   By: joaomigu <joaomigu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:38:25 by joaomigu          #+#    #+#             */
-/*   Updated: 2024/11/19 17:55:37 by joaomigu         ###   ########.fr       */
+/*   Updated: 2024/11/20 14:00:11 by joaomigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fractol.h"
 
+/**
+ * @brief Handles keyboard input events.
+ * 
+ * This function processes key events
+ *  and takes actions based on the key pressed. 
+ * - If the Escape key is pressed, it 
+ * calls the `close_handler()` to exit the program.
+ * - If a key related to panning or iteration 
+ * is pressed, the coordinates are updated 
+ *   and the graphics are re-rendered.
+ * 
+ * @param keysym The key symbol of the key
+ *  that was pressed.
+ * @param s The state structure that contains 
+ * the current fractal and graphical data.
+ * 
+ * @return Always returns 0.
+ */
 int	key_handler(int keysym, t_state *s)
 {
 	if (keysym == XK_Escape)
@@ -25,6 +43,22 @@ int	key_handler(int keysym, t_state *s)
 	return (0);
 }
 
+/**
+ * @brief Handles the close event by 
+ * freeing allocated resources.
+ * 
+ * This function is triggered when the 
+ * window is closed. It frees memory used by 
+ * the graphical sections, destroys the 
+ * window, and closes the display connection.
+ * Finally, the program exits with a status
+ *  of 0.
+ * 
+ * @param s The state structure containing
+ *  the graphical and other relevant data.
+ * 
+ * @return Always returns 0.
+ */
 int	close_handler(t_state *s)
 {
 	free_sections(s->g);
@@ -35,6 +69,28 @@ int	close_handler(t_state *s)
 	return (0);
 }
 
+/**
+ * @brief Handles mouse input events
+ *  such as button presses.
+ * 
+ * This function handles mouse button
+ *  presses. It:
+ * - Handles left mouse button press (Button1) 
+ by updating the user-defined color 
+ *   rectangles and applying any changes.
+ * - Handles mouse wheel scroll (Button4 
+ * and Button5) for zooming in and out.
+ * 
+ * @param button The mouse button that was pressed.
+ * @param x The x-coordinate of the mouse 
+ * pointer when the button was pressed.
+ * @param y The y-coordinate of the mouse 
+ * pointer when the button was pressed.
+ * @param s The state structure that contains
+ *  the current fractal and graphical data.
+ * 
+ * @return Always returns 0.
+ */
 int	mouse_handler(int button, int x, int y, t_state *s)
 {
 	int	result_color_a;
@@ -59,6 +115,28 @@ int	mouse_handler(int button, int x, int y, t_state *s)
 	return (0);
 }
 
+/**
+ * @brief Handles mouse movement events
+ *  and updates information displays.
+ * 
+ * This function is triggered when the mouse
+ *  moves inside the window. It updates 
+ * and displays the following information:
+ * - The current mouse coordinates.
+ * - The corresponding fractal coordinates 
+ * for the mouse position.
+ * It also handles drawing and updating the
+ *  graphical interface with this information.
+ * 
+ * @param x The x-coordinate of the mouse 
+ * pointer during the movement.
+ * @param y The y-coordinate of the mouse 
+ * pointer during the movement.
+ * @param s The state structure containing 
+ * the graphical and fractal data.
+ * 
+ * @return Always returns 0.
+ */
 int	mouse_move_handler(int x, int y, t_state *s)
 {
 	t_ipoint	pos;
@@ -84,6 +162,20 @@ int	mouse_move_handler(int x, int y, t_state *s)
 	return (0);
 }
 
+/**
+ * @brief Initializes the event 
+ * handling system.
+ * 
+ * This function sets up event hooks 
+ * for various events including mouse movement,
+ * mouse button presses, keyboard 
+ * presses, and window destruction events. 
+ * Each event is associated with its 
+ * corresponding handler function.
+ * 
+ * @param s The state structure that 
+ * holds references to the graphical and window data.
+ */
 void	init_events(t_state *s)
 {
 	mlx_hook(s->g->mlx_win, MotionNotify, PointerMotionMask, mouse_move_handler,

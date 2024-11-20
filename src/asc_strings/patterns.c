@@ -6,12 +6,27 @@
 /*   By: joaomigu <joaomigu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:38:09 by joaomigu          #+#    #+#             */
-/*   Updated: 2024/11/19 17:52:53 by joaomigu         ###   ########.fr       */
+/*   Updated: 2024/11/20 14:33:22 by joaomigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fractol.h"
 
+/**
+ * @brief Retrieves the pattern for digits 0-9.
+ *
+ * This function assigns the correct pattern
+ *  for digits '0' through '9'
+ * to the provided `letter` array. Each digit
+ *  is represented by a 5x3 grid
+ * pattern, where each element in the array is
+ *  either 0 (empty) or 1 (filled).
+ * 
+ * @param c The character representing the digit
+ *  (0-9).
+ * @param letter A 5x3 integer array to store 
+ * the character pattern.
+ */
 void	get_character_pattern_zero_nine(char c, int letter[5][3])
 {
 	if (c == '0')
@@ -36,6 +51,22 @@ void	get_character_pattern_zero_nine(char c, int letter[5][3])
 		get_pattern_nine(letter);
 }
 
+/**
+ * @brief Retrieves the pattern for letters 
+ * 'a' through 'k' (or 'A' through 'K').
+ *
+ * This function assigns the correct pattern 
+ * for the letters 'a' through 'k'
+ * (or 'A' through 'K') to the provided 
+ * `letter` array. Each letter is represented
+ * by a 5x3 grid pattern, where each element
+ *  in the array is either 0 (empty) or 1 (filled).
+ * 
+ * @param c The character representing the 
+ * letter (a-k or A-K).
+ * @param letter A 5x3 integer array to store
+ *  the character pattern.
+ */
 void	get_character_pattern_a_k(char c, int letter[5][3])
 {
 	if (c == 'a' || c == 'A')
@@ -62,6 +93,22 @@ void	get_character_pattern_a_k(char c, int letter[5][3])
 		get_pattern_k(letter);
 }
 
+/**
+ * @brief Retrieves the pattern for 
+ * letters 'l' through 'v' (or 'L' through 'V').
+ *
+ * This function assigns the correct 
+ * pattern for the letters 'l' through 'v'
+ * (or 'L' through 'V') to the provided `letter` array. 
+ * Each letter is represented
+ * by a 5x3 grid pattern, where each element in the array
+ *  is either 0 (empty) or 1 (filled).
+ * 
+ * @param c The character representing
+ *  the letter (l-v or L-V).
+ * @param letter A 5x3 integer array 
+ * to store the character pattern.
+ */
 void	get_character_pattern_l_v(char c, int letter[5][3])
 {
 	if (c == 'l' || c == 'L')
@@ -88,6 +135,22 @@ void	get_character_pattern_l_v(char c, int letter[5][3])
 		get_pattern_v(letter);
 }
 
+/**
+ * @brief Retrieves the pattern for letters
+ *  'w' through 'z' (or 'W' through 'Z').
+ *
+ * This function assigns the correct 
+ * pattern for the letters 'w' through 'z'
+ * (or 'W' through 'Z') to the provided 
+ * `letter` array. Each letter is represented
+ * by a 5x3 grid pattern, where each 
+ * element in the array is either 0 (empty) or 1 (filled).
+ * 
+ * @param c The character representing 
+ * the letter (w-z or W-Z).
+ * @param letter A 5x3 integer array to 
+ * store the character pattern.
+ */
 void	get_character_pattern_w_z(char c, int letter[5][3])
 {
 	if (c == 'w' || c == 'W')
@@ -100,6 +163,25 @@ void	get_character_pattern_w_z(char c, int letter[5][3])
 		get_pattern_z(letter);
 }
 
+/**
+ * @brief Retrieves the pattern for any 
+ * valid character (letters a-z, A-Z, digits 0-9, and symbols).
+ *
+ * This function determines which group the 
+ * given character belongs to (letters a-k, l-v, w-z, digits 0-9, or symbols)
+ * and delegates the task of retrieving the 
+ * appropriate pattern to the respective function. 
+ * It handles all characters from 'a' to 'z'
+ *  (both uppercase and lowercase), '0' to '9', 
+ * as well as special symbols like '+', '-', 
+ * '.', and '#'. For unsupported characters, 
+ * an empty letter pattern is returned.
+ * 
+ * @param c The character to retrieve the 
+ * pattern for.
+ * @param letter A 5x3 integer array to store 
+ * the character pattern.
+ */
 void	get_character_pattern(char c, int letter[5][3])
 {
 	if ((c >= 'a' && c <= 'k') || (c >= 'A' && c <= 'K'))

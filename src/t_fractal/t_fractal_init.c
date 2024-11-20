@@ -6,12 +6,23 @@
 /*   By: joaomigu <joaomigu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:38:54 by joaomigu          #+#    #+#             */
-/*   Updated: 2024/11/19 18:11:22 by joaomigu         ###   ########.fr       */
+/*   Updated: 2024/11/20 13:14:00 by joaomigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/fractol.h"
 
+/**
+ * @brief Fills standard values for the fractal's
+ *  real and imaginary axes.
+ *
+ * Initializes the range of real and imaginary coordinates (`dreal` and `dimag`)
+ * based on the type of fractal. For Julia sets, the range spans [-2.0, 2.0] for
+ * the real axis and is adjusted for aspect ratio. For other fractals, the range 
+ * is set to fit the Mandelbrot set with proper aspect ratio adjustment.
+ *
+ * @param f Pointer to the fractal structure to initialize.
+ */
 static void	fill_standard_values(t_fractal *f)
 {
 	if (f->fractal_type == FRACTAL_JULIA)
@@ -32,6 +43,23 @@ static void	fill_standard_values(t_fractal *f)
 	}
 }
 
+/**
+ * @brief Extracts additional parameters 
+ * for the Julia fractal.
+ *
+ * Parses user input to initialize the `julia_c`
+ *  complex constant for Julia sets.
+ * If no valid input is provided, default values are used.
+ *  Validates that the 
+ * provided coordinates are within the range [-2.0, 2.0]. 
+ *
+ * @param f Pointer to the fractal structure to initialize.
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line argument strings.
+ *
+ * @return Returns `TRUE` if parameters are valid or not required,
+ *  `FALSE` on error.
+ */
 static int	extract_fractal_extras(t_fractal *f, int argc, char **argv)
 {
 	if (f->fractal_type == FRACTAL_JULIA)
@@ -59,6 +87,21 @@ static int	extract_fractal_extras(t_fractal *f, int argc, char **argv)
 	return (TRUE);
 }
 
+/**
+ * @brief Extracts user-defined colors for the Julia fractal.
+ *
+ * Parses user input for colors (in hexadecimal format)
+ *  for Julia sets. Depending
+ * on the number of arguments, the colors may be at different
+ *  positions in the input.
+ *
+ * @param f Pointer to the fractal structure to initialize.
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line argument strings.
+ *
+ * @return Returns `TRUE` if color inputs are valid or not required,
+ *  `FALSE` on error.
+ */
 static int	extract_user_colors_julia(t_fractal *f, int argc, char **argv)
 {
 	if (argc == 4)
@@ -87,6 +130,21 @@ static int	extract_user_colors_julia(t_fractal *f, int argc, char **argv)
 	return (TRUE);
 }
 
+/**
+ * @brief Extracts user-defined colors for fractals.
+ *
+ * Parses user input for two colors (in hexadecimal format)
+ *  used to render the fractal.
+ * Sets default colors if no input is provided. Handles 
+ * Julia-specific color extraction 
+ * through a separate helper function.
+ *
+ * @param f Pointer to the fractal structure to initialize.
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line argument strings.
+ *
+ * @return Returns `TRUE` if color inputs are valid, `FALSE` on error.
+ */
 static int	extract_user_colors(t_fractal *f, int argc, char **argv)
 {
 	f->color_a = COLOR_CYAN;
@@ -111,6 +169,21 @@ static int	extract_user_colors(t_fractal *f, int argc, char **argv)
 	return (TRUE);
 }
 
+/**
+ * @brief Initializes a fractal structure based
+ *  on user input.
+ *
+ * Sets the fractal type, fills default ranges
+ *  for real and imaginary coordinates,
+ * extracts additional Julia-specific parameters,
+ *  and validates user-provided colors.
+ * Generates mapped coordinates and sets the gradient 
+ * colors for rendering.
+ *
+ * @param f Pointer to the fractal structure to initialize.
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line argument strings.
+ */
 void	init_fractal(t_fractal *f, int argc, char **argv)
 {
 	f->fractal_type = get_fractal_type(argv[1]);

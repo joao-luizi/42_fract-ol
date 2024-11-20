@@ -6,12 +6,33 @@
 /*   By: joaomigu <joaomigu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:38:34 by joaomigu          #+#    #+#             */
-/*   Updated: 2024/11/19 18:00:13 by joaomigu         ###   ########.fr       */
+/*   Updated: 2024/11/20 13:47:34 by joaomigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fractol.h"
 
+/**
+ * @brief Calculates the Mandelbrot 
+ * set iteration count for a given point.
+ * 
+ * This function calculates the number
+  of iterations it takes for a point 
+ * (specified by the real and imaginary
+  parts `cr` and `ci`) to escape 
+ * the Mandelbrot set, based on the provided
+  maximum iteration limit.
+ * The iteration count is returned when the
+  point escapes, or the 
+ * maximum iteration count is reached.
+ *
+ * @param cr The real part of the point.
+ * @param ci The imaginary part of the point.
+ * @param max_iter The maximum number of iterations
+ *  to compute.
+ * @return The number of iterations before escaping,
+ *  or `max_iter` if the point does not escape.
+ */
 int	calc_mandelbrot(double cr, double ci, int max_iter)
 {
 	int		n;
@@ -34,6 +55,27 @@ int	calc_mandelbrot(double cr, double ci, int max_iter)
 	return (n);
 }
 
+/**
+ * @brief Calculates the Julia set
+ *  iteration count for a given point.
+ * 
+ * This function calculates the number
+ *  of iterations it takes for a point 
+ * (specified by `zr` and `zi`) to escape
+ *  the Julia set, based on the given 
+ * Julia constant `f->julia_c` and the 
+ * maximum iteration limit `f->iterations`. 
+ * The iteration count is returned when 
+ * the point escapes, or the maximum iteration 
+ * count is reached.
+ *
+ * @param f The fractal structure containing
+ *  parameters for the Julia set.
+ * @param zr The real part of the point.
+ * @param zi The imaginary part of the point.
+ * @return The number of iterations before 
+ * escaping, or `f->iterations` if the point does not escape.
+ */
 int	calc_julia(t_fractal *f, double zr, double zi)
 {
 	int		n;
@@ -53,6 +95,30 @@ int	calc_julia(t_fractal *f, double zr, double zi)
 	return (n);
 }
 
+/**
+ * @brief Calculates the Burning Ship 
+ * fractal iteration count for a given point.
+ * 
+ * This function calculates the number
+ *  of iterations it takes for a point 
+ * (specified by the real and imaginary 
+ * parts `cr` and `ci`) to escape 
+ * the Burning Ship fractal, based on the
+ *  provided maximum iteration limit. 
+ * The iteration count is returned when 
+ * the point escapes, or the maximum 
+ * iteration count is reached. Unlike Mandelbrot,
+ *  the Burning Ship fractal 
+ * applies the absolute value operation to both
+ *  the real and imaginary parts.
+ *
+ * @param cr The real part of the point.
+ * @param ci The imaginary part of the point.
+ * @param max_iter The maximum number of iterations 
+ * to compute.
+ * @return The number of iterations before escaping,
+ *  or `max_iter` if the point does not escape.
+ */
 int	calc_burning_ship(double cr, double ci, int max_iter)
 {
 	int		n;
@@ -77,6 +143,23 @@ int	calc_burning_ship(double cr, double ci, int max_iter)
 	return (n);
 }
 
+/**
+ * @brief Converts a hexadecimal
+ *  string to an unsigned integer.
+ * 
+ * This function converts a string 
+ * representing a hexadecimal number 
+ * (e.g., "0x1F3") into its corresponding
+ *  unsigned integer value. 
+ * It assumes the string starts with 
+ "0x" and processes the following 
+ * characters as hexadecimal digits.
+ *
+ * @param hex_string The hexadecimal 
+ * string to convert.
+ * @return The corresponding unsigned 
+ * integer value.
+ */
 unsigned int	hex_string_to_int(char *hex_string)
 {
 	unsigned int	result;
@@ -97,6 +180,20 @@ unsigned int	hex_string_to_int(char *hex_string)
 	return (result);
 }
 
+/**
+ * @brief Calculates the fractal iteration 
+ * digits for the state.
+ * 
+ * This function computes the fractal iteration
+ *  count digits and stores them 
+ * in `s->f->fractal_iter`. The iteration count
+ *  is broken down into individual 
+ * digits and stored in reverse order, starting 
+ * from the least significant digit.
+ *
+ * @param s The state structure containing the 
+ * fractal iteration count.
+ */
 void	calc_iter(t_state *s)
 {
 	int	i;

@@ -1,17 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events_color_b.c                                   :+:      :+:    :+:   */
+/*   events_color_b_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaomigu <joaomigu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:38:23 by joaomigu          #+#    #+#             */
-/*   Updated: 2024/11/19 17:57:23 by joaomigu         ###   ########.fr       */
+/*   Updated: 2024/11/20 14:03:32 by joaomigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fractol.h"
 
+/**
+ * @brief Handles interaction for adjusting
+ *  the blue color channel in the user interface.
+ * 
+ * This function handles mouse interaction for
+ *  modifying the blue channel of the color.
+ * - It increases the blue channel if the mouse
+ *  is in the region near the top of the bar.
+ * - It decreases the blue channel if the mouse
+ *  is in the region near the bottom of the bar.
+ * - If the mouse is in the color adjustment area,
+ *  the blue channel is set according to the vertical mouse position.
+ * 
+ * @param x The x-coordinate of the mouse cursor.
+ * @param y The y-coordinate of the mouse cursor.
+ * @param channel A pointer to the blue color 
+ * channel value that will be modified.
+ * 
+ * @return TRUE if the channel was modified, 
+ * otherwise FALSE.
+ */
 static int	color_b_area_b(int x, int y, int *channel)
 {
 	if (x > 935 - 5 && x < 950 + 5)
@@ -35,6 +56,27 @@ static int	color_b_area_b(int x, int y, int *channel)
 	return (FALSE);
 }
 
+/**
+ * @brief Handles interaction for adjusting the
+ *  green color channel in the user interface.
+ * 
+ * This function handles mouse interaction for 
+ * modifying the green channel of the color.
+ * - It increases the green channel if the mouse 
+ * is in the region near the top of the bar.
+ * - It decreases the green channel if the mouse 
+ * is in the region near the bottom of the bar.
+ * - If the mouse is in the color adjustment area,
+ *  the green channel is set according to the vertical mouse position.
+ * 
+ * @param x The x-coordinate of the mouse cursor.
+ * @param y The y-coordinate of the mouse cursor.
+ * @param channel A pointer to the green color channel 
+ * value that will be modified.
+ * 
+ * @return TRUE if the channel was modified, otherwise
+ *  FALSE.
+ */
 static int	color_b_area_g(int x, int y, int *channel)
 {
 	if (x > 890 - 5 && x < 890 + 5)
@@ -58,6 +100,27 @@ static int	color_b_area_g(int x, int y, int *channel)
 	return (FALSE);
 }
 
+/**
+ * @brief Handles interaction for adjusting the red
+ *  color channel in the user interface.
+ * 
+ * This function handles mouse interaction for 
+ * modifying the red channel of the color.
+ * - It increases the red channel if the mouse is 
+ * in the region near the top of the bar.
+ * - It decreases the red channel if the mouse is 
+ * in the region near the bottom of the bar.
+ * - If the mouse is in the color adjustment area, 
+ * the red channel is set according to the vertical mouse position.
+ * 
+ * @param x The x-coordinate of the mouse cursor.
+ * @param y The y-coordinate of the mouse cursor.
+ * @param channel A pointer to the red color channel 
+ * value that will be modified.
+ * 
+ * @return TRUE if the channel was modified, otherwise
+ *  FALSE.
+ */
 static int	color_b_area_r(int x, int y, int *channel)
 {
 	if (x > 840 - 5 && x < 840 + 5)
@@ -81,6 +144,26 @@ static int	color_b_area_r(int x, int y, int *channel)
 	return (FALSE);
 }
 
+/**
+ * @brief Handles the user input for modifying 
+ * the color using mouse interaction.
+ * 
+ * This function updates the color by interacting 
+ * with the color channels. It modifies 
+ * the red, green, and blue channels based on the
+ *  user's mouse interaction in the 
+ * respective areas of the color selection bars.
+ * - The modified color is stored back into 
+ * `color_b_edit`.
+ * 
+ * @param x The x-coordinate of the mouse cursor.
+ * @param y The y-coordinate of the mouse cursor.
+ * @param s The state structure containing the 
+ * current color values.
+ * 
+ * @return TRUE if the color was modified, 
+ * otherwise FALSE.
+ */
 int	user_color_b(int x, int y, t_state *s)
 {
 	int	r;
@@ -99,6 +182,21 @@ int	user_color_b(int x, int y, t_state *s)
 	return (FALSE);
 }
 
+/**
+ * @brief Draws the "apply" button and
+ *  updates the user interface.
+ * 
+ * This function checks whether the user
+ *  has modified either `color_a` or `color_b`. 
+ * If a modification has occurred, it draws
+ *  the "apply" button in the user interface. 
+ * If no changes are made, the button is 
+ * cleared. The "apply" button is displayed 
+ * in the window at the predefined position.
+ * 
+ * @param s The state structure containing 
+ * the graphical data and color information.
+ */
 void	draw_apply(t_state *s)
 {
 	t_ipoint	pos;

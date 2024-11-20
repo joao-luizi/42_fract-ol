@@ -1,17 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.c                                          :+:      :+:    :+:   */
+/*   fractol_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaomigu <joaomigu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:39:02 by joaomigu          #+#    #+#             */
-/*   Updated: 2024/11/19 18:22:14 by joaomigu         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:56:39 by joaomigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fractol.h"
 
+/**
+ * @brief Displays the help message and usage 
+ * instructions for the fractal program.
+ *
+ * This function prints information about available 
+ * fractals, usage syntax, 
+ * and examples for running the program. It then 
+ * terminates the program.
+ *
+ * @note This function always exits the program with status `1`.
+ */
 void	show_help_msg(void)
 {
 	ft_putendl_fd("Available fractals:", 1);
@@ -31,12 +42,34 @@ void	show_help_msg(void)
 	exit(1);
 }
 
+/**
+ * @brief Cleans and initializes the state structure.
+ *
+ * This function resets the state by cleaning its components, 
+ * preparing it for fresh initialization.
+ *
+ * @param s Pointer to the program's state structure to be cleaned.
+ */
 void	clean_init(t_state *s)
 {
 	clean_f(s->f);
 	clean_g(s->g);
 }
 
+/**
+ * @brief Entry point for the fractal program.
+ *
+ * This function validates input arguments, initializes program state, 
+ * and enters the main rendering loop.
+ *
+ * @param argc Argument count.
+ * @param argv Argument vector containing the program name and parameters.
+ * 
+ * @return Always returns `0` (success).
+ *
+ * @note Exits the program with an error message if invalid arguments are passed
+ *       or if graphics initialization fails.
+ */
 int	main(int argc, char **argv)
 {
 	t_graphics	g;

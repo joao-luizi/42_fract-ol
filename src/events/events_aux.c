@@ -6,12 +6,35 @@
 /*   By: joaomigu <joaomigu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:38:17 by joaomigu          #+#    #+#             */
-/*   Updated: 2024/11/19 17:55:51 by joaomigu         ###   ########.fr       */
+/*   Updated: 2024/11/20 14:09:38 by joaomigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fractol.h"
 
+/**
+ * @brief Handles the iteration count adjustment
+ *  based on key press input.
+ * 
+ * This function checks for key presses related
+ *  to iteration count adjustments. The keys 
+ * `XK_plus` and `65451` are used to increase the
+ *  iteration count by 10, while `XK_minus` 
+ * and `65453` are used to decrease the count by 
+ * 10. It ensures the iteration count remains 
+ * within a defined range (40 to 100 iterations).
+ *  After adjusting the iteration count, the 
+ * function recalculates the iterations and updates
+ *  the gradient colors.
+ * 
+ * @param keysym The key symbol representing the 
+ * pressed key.
+ * @param s A pointer to the state structure containing
+  the fractal and iteration data.
+ * 
+ * @return TRUE if the iteration count was modified,
+ *  otherwise FALSE.
+ */
 int	key_handler_iter_check(int keysym, t_state *s)
 {
 	if (keysym != XK_plus && keysym != 65451 && keysym != XK_minus
@@ -37,6 +60,27 @@ int	key_handler_iter_check(int keysym, t_state *s)
 	return (TRUE);
 }
 
+/**
+ * @brief Handles the panning operation 
+ * based on arrow key input.
+ * 
+ * This function processes arrow key inputs 
+ (`XK_Right`, `XK_Left`, `XK_Up`, `XK_Down`) 
+ * to pan the fractal's view in the respective 
+ direction. It computes the panning distance 
+ * based on the current zoom level and moves 
+ the view accordingly. After panning, it recalculates 
+ * the axis limits and updates the graphics to
+  reflect the change.
+ * 
+ * @param keysym The key symbol representing 
+ * the pressed arrow key.
+ * @param s A pointer to the state structure 
+ * containing the fractal and panning data.
+ * 
+ * @return TRUE if the panning operation was 
+ * performed, otherwise FALSE.
+ */
 int	key_handler_pan_check(int keysym, t_state *s)
 {
 	double	distance;
@@ -60,6 +104,28 @@ int	key_handler_pan_check(int keysym, t_state *s)
 	return (TRUE);
 }
 
+/**
+ * @brief Handles zooming in or out 
+ * based on mouse button scroll input.
+ * 
+ * This function allows the user to
+ *  zoom in or out on the fractal using the mouse scroll wheel. 
+ * Scrolling up (Button4) zooms in, 
+ * while scrolling down (Button5) zooms out. The function adjusts 
+ * the real and imaginary axis ranges
+ *  based on the zoom direction and updates the fractal's 
+ * visualization accordingly, including
+ *  recalculating the axis limits and re-rendering the graphics.
+ * 
+ * @param button The mouse button event 
+ * (Button4 for zooming in, Button5 for zooming out).
+ * @param x The x-coordinate of the mouse
+ *  cursor.
+ * @param y The y-coordinate of the mouse
+ *  cursor.
+ * @param s A pointer to the state structure 
+ * containing the fractal data.
+ */
 void	zoom_handler(int button, int x, int y, t_state *s)
 {
 	double	new_real_range;
@@ -85,6 +151,25 @@ void	zoom_handler(int button, int x, int y, t_state *s)
 	render_graphics(s);
 }
 
+/**
+ * @brief Handles the panning operation 
+ * based on direction input and distance.
+ * 
+ * This function updates the fractal's view
+ *  position based on the specified direction 
+ * ('R' for right, 'L' for left, 'U' for up,
+ *  'D' for down) and the calculated panning distance. 
+ * The view is adjusted within defined axis 
+ * limits, and the function ensures that the fractal 
+ * does not exceed the predefined boundaries.
+ * 
+ * @param s A pointer to the state structure 
+ * containing the fractal and panning data.
+ * @param distance The calculated distance for
+ *  the panning operation.
+ * @param direction The direction of the pan 
+ * ('R' for right, 'L' for left, 'U' for up, 'D' for down).
+ */
 void	pan_handler(t_state *s, double distance, char direction)
 {
 	if (direction == 'R' && s->f->dreal.y - distance > -4.0)
